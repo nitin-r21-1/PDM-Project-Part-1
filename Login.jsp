@@ -26,7 +26,7 @@
 
 
 		//Make an insert statement for the Sells table:
-		String insert = "INSERT INTO sells(bar, beer, price)"
+		String insert = "INSERT INTO users(username,password)"
 				+ "VALUES (?, ?)";
 		//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 		PreparedStatement ps = con.prepareStatement(insert);

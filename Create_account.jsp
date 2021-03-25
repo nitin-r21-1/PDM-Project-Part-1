@@ -16,7 +16,7 @@
 	<h2 style="color:blue;"> Create an account</h2>
 	<br>
 	
-	<form action="Check_login_details.jsp" method="POST">
+	<form action="Check_new_account.jsp" method="POST">
        First Name: <input type = "text" name= "first_name"/> <br/>
        Last Name: <input type = "text" name= "last_name"/> <br/>
        Email: <input type = "text" name= "email"/> <br/>

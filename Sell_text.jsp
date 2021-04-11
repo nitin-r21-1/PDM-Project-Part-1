@@ -13,7 +13,7 @@
 <body>
 
 <%
-    if ((session.getAttribute("texts").equals("Book"))) {
+    if ((request.getParameter("texts").equals("Book"))) {
     
     
 %>

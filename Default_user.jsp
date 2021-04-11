@@ -14,11 +14,11 @@
 	
 	
 	
-	<form action= "Sell_Text.jsp" method = "GET">
+	<form action= "Sell_text.jsp" method = "GET">
 	
 	
 	<label for="texts">Choose a text:</label>
-
+	
 	<select name="texts" id="texts">
   	<option value="Book">Book</option>
   	<option value="Magazine">Magazine</option>

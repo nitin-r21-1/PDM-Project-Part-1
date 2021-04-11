@@ -1,5 +1,5 @@
-create database cs336project;
-use cs336project;
+create database bidatext;
+use bidatext;
 
 create table `User` (`id` int,
 					`username` varchar (30),
@@ -28,14 +28,27 @@ create table `QandA_AsksAnswers`(`qid` int,
                                 `rep_id` int,
                                 `end_id` int,
                                 primary key (`qid`),
-                                foreign key (`rep_id`) references `Representative` (`id`),
+                               foreign key (`rep_id`) references `Representative` (`id`),
                                 foreign key (`end_id`) references `End_User` (`id`));
+
+create table `Text_Sells`(`textID` int,
+							`end_id` int,
+                            `condition` varchar(10),
+                            `author` varchar(100),
+                            `title` varchar(50),
+                            `publisher` varchar(50),
+                            `copyright` int,
+                            `description` varchar(280),
+                            primary key (`textID`),
+							foreign key (`end_id`) references `End_User` (`id`));
                                 
-create table `Auction` (`auctionID` int,
+create table `Auction_Held` (`auctionID` int,
+						`textID` int,
 						`price` int,
                         `minimum` int,
                         `increment` int,
-                        primary key (`auctionID`));
+                        primary key (`auctionID`),
+						foreign key (`textID`) references `Text_Sells` (`textID`));
                         
 create table `Bid_PlacesIn`(`bid_num` int,
 							`auctionID` int,
@@ -46,55 +59,42 @@ create table `Bid_PlacesIn`(`bid_num` int,
                             `date` date,
                             `time` time,
                             primary key (`bid_num`),
-                            foreign key (`auctionID`) references `Auction` (`auctionID`),
+                            foreign key (`auctionID`) references `Auction_Held` (`auctionID`),
                             foreign key (`end_id`) references `End_User` (`id`));
                         
 create table `History` (`auctionID` int,
 						`end_id` int,
                         `role` varchar(6),
                         primary key (`auctionID`, `end_id`),
-                        foreign key (`auctionID`) references `Auction` (`auctionID`),
+                        foreign key (`auctionID`) references `Auction_Held` (`auctionID`),
 						foreign key (`end_id`) references `End_User` (`id`));
 
-
-create table `Text_SellsHeld`(`textID` int,
-							`end_id` int,
-                            `auctionID` int,
-                            `condition` varchar(10),
-                            `author` varchar(100),
-                            `title` varchar(50),
-                            `publisher` varchar(50),
-                            `copyright` int,
-                            `description` varchar(280),
-                            primary key (`textID`),
-                            foreign key (`auctionID`) references `Auction` (`auctionID`),
-							foreign key (`end_id`) references `End_User` (`id`));
                             
 create table `Sends_Alert`(`end_id` int,
 						`textID` int,
                         primary key(`end_id`, `textID`),
                         foreign key (`end_id`) references `End_User` (`id`),
-                        foreign key (`textID`) references `Text_SellsHeld` (`textID`));
+                        foreign key (`textID`) references `Text_Sells` (`textID`));
                         
 create table `Book` (`textID` int,
 					`isbn` varchar(13),
                     `genre` varchar(25),
                     `cover` varchar(10),
                     primary key (`textID`),
-                    foreign key (`textID`) references `Text_SellsHeld` (`textID`));
+                    foreign key (`textID`) references `Text_Sells` (`textID`));
                     
 create table `Magazine`(`textID` int,
 						`issn` varchar(8),
                         `volume` int,
                         `issue` int,
                         primary key (`textID`),
-						foreign key (`textID`) references `Text_SellsHeld` (`textID`));
+						foreign key (`textID`) references `Text_Sells` (`textID`));
                         
 create table `Reference`(`textID` int,
 						`isbn` varchar(13),
                         `type` varchar(25),
                         primary key (`textID`),
-						foreign key (`textID`) references `Text_SellsHeld` (`textID`));
+						foreign key (`textID`) references `Text_Sells` (`textID`));
                         
 create table `Earnings`(`end_id` int,
 						`textID` int,
@@ -103,10 +103,10 @@ create table `Earnings`(`end_id` int,
                         `price` int,
                         primary key (`end_id`, `textID`, `auctionID`),
                         foreign key (`end_id`) references `End_User` (`id`),
-                        foreign key (`textID`) references `Text_SellsHeld` (`textID`),
-                        foreign key (`auctionID`) references `Auction` (`auctionID`));
+                        foreign key (`textID`) references `Text_Sells` (`textID`),
+                        foreign key (`auctionID`) references `Auction_Held` (`auctionID`));
 
-#show tables;
+show tables;
 insert into `User` (`id`, `username`, `password`) values (1, 'Admin', 'Password');
 insert into `User` (`id`, `username`, `password`) values (2, 'Rep', 'Repwd');
 insert into `Admin` (`id`) values (1);

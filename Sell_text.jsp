@@ -15,13 +15,25 @@
 <%
     if ((session.getAttribute("texts").equals("Book"))) {
     
-    }
+    
 %>
+<form action="Book_auction_info.jsp" method="POST">
+       ISBN: <input type = "text" name= "isbn"/> <br/>
+       Genre: <input type = "text" name= "genre"/> <br/>
+       Cover: <input type = "text" name= "cover"/> <br/>
+       Condition: <input type = "text" name= "condition"/> <br/>		
+       Author: <input type="text" name="author"/> <br/>
+       Title:<input type="text" name="title"/> <br/>
+       Publisher: <input type = "text" name= "publisher"/> <br/>
+       Copyright: <input type = "text" name= "copyright"/> <br/>
+       Description: <input type = "text" name= "description"/> <br/>
+	   <input type="submit" value="Create Book Auction"/>
+	</form>
 	
-	
-	<h2 style="color:blue;"> Create an auction</h2>
-	<br>
-	
+<%}
+%>
+
+
 	
 	
 	

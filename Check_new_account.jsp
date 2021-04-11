@@ -28,8 +28,8 @@
     	int count = Integer.parseInt(String.valueOf(countUser.charAt(0))) + 1;
         st.executeUpdate("insert into `User` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `address`) values (" + count + ", '" + userid + "', '" + pwd + "', '" + firstname + "', '" + lastname + "', '" + email + "', '" + address + "')" );
     	session.setAttribute("user", userid); // the username will be stored in the session
-        out.println("welcome " + userid);
-        out.println("<a href='logout.jsp'>Log out</a>");
-        response.sendRedirect("success.jsp");
+        //out.println("welcome " + userid);
+        //out.println("<a href='logout.jsp'>Log out</a>");
+        response.sendRedirect("Default_customer.jsp");
     }
 %>

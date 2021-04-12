@@ -12,30 +12,32 @@
 </head>
 <body>
 
-<%
-    if ((request.getParameter("texts").equals("Book"))) {
-    
-    
-%>
-<form action="Book_auction_info.jsp" method="POST">
-       ISBN: <input type = "text" name= "isbn"/> <br/>
-       Genre: <input type = "text" name= "genre"/> <br/>
-       Cover: <input type = "text" name= "cover"/> <br/>
-       Condition: <input type = "text" name= "condition"/> <br/>		
-       Author: <input type="text" name="author"/> <br/>
-       Title:<input type="text" name="title"/> <br/>
-       Publisher: <input type = "text" name= "publisher"/> <br/>
-       Copyright: <input type = "text" name= "copyright"/> <br/>
-       Description: <input type = "text" name= "description"/> <br/>
-	   <input type="submit" value="Create Book Auction"/>
-	</form>
-	
-<%}
-%>
-
-
-	
-	
+	<form action="Book_auction_info.jsp" method="POST">
+        <% 	if ((request.getParameter("textType") == null)){ %>
+                <a href="Default_user.jsp">Please Select Text Type</a>
+        <% } %>
+        
+        <%	if ((request.getParameter("textType").equals("Book"))){ %>
+                ISBN: <input type = "text" name= "isbn"/> <br/>
+                   Genre: <input type = "text" name= "genre"/> <br/>
+                   Cover: <input type = "text" name= "cover"/> <br/>
+        <%} else if ((request.getParameter("textType").equals("Magazine"))){ %>
+                ISSN: <input type = "text" name= "issn"/> <br/>
+                Volume: <input type = "text" name= "volume"/> <br/>
+                Issue: <input type = "text" name= "issue"/> <br/>
+        <%} else if ((request.getParameter("textType").equals("Reference"))){ %>
+                ISBN: <input type = "text" name= "isbn"/> <br/>
+                   Type: <input type = "text" name= "type"/> <br/>
+        <% } %>
+        
+               Condition: <input type = "text" name= "condition"/> <br/>		
+               Author: <input type="text" name="author"/> <br/>
+               Title:<input type="text" name="title"/> <br/>
+               Publisher: <input type = "text" name= "publisher"/> <br/>
+               Copyright: <input type = "text" name= "copyright"/> <br/>
+               Description: <input type = "text" name= "description"/> <br/>
+               <input type="submit" value="Create Book Auction"/>
+            </form>
 	
 </body>
 </html>

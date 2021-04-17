@@ -43,12 +43,16 @@ create table `Text_Sells`(`textID` int,
 							foreign key (`end_id`) references `End_User` (`id`));
                                 
 create table `Auction_Held` (`auctionID` int,
-						`textID` int,
-						`price` int,
-                        `minimum` int,
-                        `increment` int,
-                        primary key (`auctionID`),
-						foreign key (`textID`) references `Text_Sells` (`textID`));
+						    `textID` int,
+						    `price` int,
+                            `minimum` int,
+                            `increment` int,
+						    `closing` datetime,
+						    `closed` boolean,
+						    `winner` int,
+                            primary key (`auctionID`),
+						    foreign key (`winner`) references `End_User` (`id`),
+						    foreign key (`textID`) references `Text_Sells` (`textID`));
                         
 create table `Bid_PlacesIn`(`bid_num` int,
 							`auctionID` int,

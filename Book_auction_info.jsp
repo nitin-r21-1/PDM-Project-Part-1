@@ -27,19 +27,31 @@
     ResultSet rs1;
     if ((request.getParameter("textType").equals("Book")))
     {
-    	rs1 = st.executeQuery("select * from `User` where `username`='" + userid +"'");
+        st.executeUpdate("insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`) values (" + count + ", '" + textID + "', '" + end_id + "', '" + condition + "', '" + author + "', '" + title + "', '" + publisher + "', '" + copyright + "', '" + description + "')" );
+        
+        st.executeUpdate("insert into `Book` (`textID`, `isbn`, `genre`, `cover`) values (" + count + ", '" + textID + "', '" + isbn + "', '" + genre + "', '" + cover + "')" );
+
+
     }
     
     else if ((request.getParameter("textType").equals("Magazine")))
     {
-    	
+        st.executeUpdate("insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`) values (" + count + ", '" + textID + "', '" + end_id + "', '" + condition + "', '" + author + "', '" + title + "', '" + publisher + "', '" + copyright + "', '" + description + "')" );
+        
+        st.executeUpdate("insert into `Magazine` (`textID`, `issn`, `volume`, `issue`) values (" + count + ", '" + textID + "', '" + issn + "', '" + volume + "', '" + issue + "')" );
+
+	
     }
     
     else if ((request.getParameter("textType").equals("Reference")))
     {
-    	
+        st.executeUpdate("insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`) values (" + count + ", '" + textID + "', '" + end_id + "', '" + condition + "', '" + author + "', '" + title + "', '" + publisher + "', '" + copyright + "', '" + description + "')" );
+        
+        st.executeUpdate("insert into `Reference` (`textID`, `referenceISBN`, `type`) values (" + count + ", '" + textID + "', '" + referenceISBN + "', '" + type + "')" );
+
+
     }
     
   
-    }
+    
 %>

@@ -26,7 +26,7 @@
                 Volume: <input type = "text" name= "volume"/> <br/>
                 Issue: <input type = "text" name= "issue"/> <br/>
         <%} else if ((request.getParameter("textType").equals("Reference"))){ %>
-                ISBN: <input type = "text" name= "isbn"/> <br/>
+                ISBN: <input type = "text" name= "referenceISBN"/> <br/>
                    Type: <input type = "text" name= "type"/> <br/>
         <% } %>
         

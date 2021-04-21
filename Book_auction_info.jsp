@@ -12,7 +12,9 @@
 	String publisher = request.getParameter("publisher");
 	String copyright = request.getParameter("copyright");
 	String description = request.getParameter("description");
-	
+	String price = request.getParameter("price");
+	String min_price = request.getParameter("min_price");
+	String closing_date = request.getParameter("closing_date");
     
     Class.forName("com.mysql.jdbc.Driver");
     Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "root");
@@ -28,6 +30,7 @@
 	int count = Integer.parseInt(String.valueOf(countAuction.charAt(0))) + 1;
 	
     int textID = count;
+    int auctionID = textID;
 	
     if ((request.getParameter("textType").equals("Book")))
     {
@@ -36,10 +39,11 @@
         String cover = request.getParameter("cover");
         
        
-        st.executeUpdate("insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`) values (" + count + ", '" + textID + "', '" + session.getAttribute("userid") + "', '" + condition + "', '" + author + "', '" + title + "', '" + publisher + "', '" + copyright + "', '" + description + "')" );
+        st.executeUpdate("insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`) values (" + textID + "', '" + session.getAttribute("userid") + "', '" + condition + "', '" + author + "', '" + title + "', '" + publisher + "', '" + copyright + "', '" + description + "')" );
         
-        st.executeUpdate("insert into `Book` (`textID`, `isbn`, `genre`, `cover`) values (" + count + ", '" + textID + "', '" + isbn + "', '" + genre + "', '" + cover + "')" );
-
+        st.executeUpdate("insert into `Book` (`textID`, `isbn`, `genre`, `cover`) values (" + textID + "', '" + isbn + "', '" + genre + "', '" + cover + "')" );
+		
+        st.executeUpdate("insert into `Auction_Held` (`auctionID`, `textID`, `price`,  `minimum`, `closing`) values (" + auctionID + "', '" + textID + "', '" + price + "', '" + min_price + "', '" + closing_date + "')" );
 
     }
     
@@ -52,7 +56,9 @@
         
     	st.executeUpdate("insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`) values (" + count + ", '" + textID + "', '" + session.getAttribute("userid") + "', '" + condition + "', '" + author + "', '" + title + "', '" + publisher + "', '" + copyright + "', '" + description + "')" );
         
-        st.executeUpdate("insert into `Magazine` (`textID`, `issn`, `volume`, `issue`) values (" + count + ", '" + textID + "', '" + issn + "', '" + volume + "', '" + issue + "')" );
+        st.executeUpdate("insert into `Magazine` (`textID`, `issn`, `volume`, `issue`) values (" + textID + "', '" + issn + "', '" + volume + "', '" + issue + "')" );
+        
+        st.executeUpdate("insert into `Auction_Held` (`auctionID`, `textID`, `price`,  `minimum`, `closing`) values (" + auctionID + "', '" + textID + "', '" + price + "', '" + min_price + "', '" + closing_date + "')" );
 
 	
     }
@@ -65,8 +71,9 @@
     	
         st.executeUpdate("insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`) values (" + count + ", '" + textID + "', '" + session.getAttribute("userid") + "', '" + condition + "', '" + author + "', '" + title + "', '" + publisher + "', '" + copyright + "', '" + description + "')" );
         
-        st.executeUpdate("insert into `Reference` (`textID`, `referenceISBN`, `type`) values (" + count + ", '" + textID + "', '" + isbn + "', '" + type + "')" );
-
+        st.executeUpdate("insert into `Reference` (`textID`, `referenceISBN`, `type`) values (" + textID + "', '" + isbn + "', '" + type + "')" );
+	
+        st.executeUpdate("insert into `Auction_Held` (`auctionID`, `textID`, `price`,  `minimum`, `closing`) values (" + auctionID + "', '" + textID + "', '" + price + "', '" + min_price + "', '" + closing_date + "')" );
 
     }
     

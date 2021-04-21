@@ -36,6 +36,9 @@
                Publisher: <input type = "text" name= "publisher"/> <br/>
                Copyright: <input type = "text" name= "copyright"/> <br/>
                Description: <input type = "text" name= "description"/> <br/>
+               Starting Price: <input type = "text" name= "price" /> <br/>
+               Minimum Price: <input type = "text" name= "min_price" /> <br/>
+               Closing Date: <input type = "datetime" name= "closing_date" /> <br/>
                <input type="submit" value="Create Book Auction"/>
             </form>
 	

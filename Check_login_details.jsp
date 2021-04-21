@@ -2,15 +2,23 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
 <%
-    String userid = request.getParameter("username");   
+    String user = request.getParameter("username");   
     String pwd = request.getParameter("password");
     Class.forName("com.mysql.jdbc.Driver");
     Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "root");
     Statement st = con.createStatement();
     ResultSet rs;
-    rs = st.executeQuery("select * from `User` where `username`='" + userid + "' and `password`='" + pwd + "'");
+    rs = st.executeQuery("select * from `User` where `username`='" + user + "' and `password`='" + pwd + "'");
     if (rs.next()) {
         session.setAttribute("user", userid); // the username will be stored in the session
+        ResultSet rs0;
+        rs0 = st.executeQuery("select id from `User` where `username`='" + user + "'");
+        String userIds = "";
+        if (rs0.next()) {
+        	userIds = rs0.getString(1);
+        	int userId = Integer.parseInt(String.valueOf(userIds.charAt(0))) + 1;
+        	session.setAttribute("userid", userId);
+        }
         out.println("welcome " + userid);
         out.println("<a href='logout.jsp'>Log out</a>");
         response.sendRedirect("Default_user.jsp");

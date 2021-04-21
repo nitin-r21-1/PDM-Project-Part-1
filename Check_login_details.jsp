@@ -10,7 +10,7 @@
     ResultSet rs;
     rs = st.executeQuery("select * from `User` where `username`='" + user + "' and `password`='" + pwd + "'");
     if (rs.next()) {
-        session.setAttribute("user", userid); // the username will be stored in the session
+        session.setAttribute("user", user); // the username will be stored in the session
         ResultSet rs0;
         rs0 = st.executeQuery("select id from `User` where `username`='" + user + "'");
         String userIds = "";
@@ -19,7 +19,7 @@
         	int userId = Integer.parseInt(String.valueOf(userIds.charAt(0))) + 1;
         	session.setAttribute("userid", userId);
         }
-        out.println("welcome " + userid);
+        out.println("welcome " + user);
         out.println("<a href='logout.jsp'>Log out</a>");
         response.sendRedirect("Default_user.jsp");
     } else {

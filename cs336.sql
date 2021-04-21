@@ -1,5 +1,5 @@
-create database bidatext;
-use bidatext;
+create database cs336project;
+use cs336project;
 
 create table `User` (`id` int,
 					`username` varchar (30),
@@ -47,6 +47,7 @@ create table `Auction_Held` (`auctionID` int,
 						    `price` int,
                             `minimum` int,
                             `increment` int,
+                            `current` int,
 						    `closing` datetime,
 						    `closed` boolean,
 						    `winner` int,

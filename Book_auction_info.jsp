@@ -71,7 +71,7 @@
     	
         st.executeUpdate("insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`) values (" + count + ", '" + textID + "', '" + session.getAttribute("userid") + "', '" + condition + "', '" + author + "', '" + title + "', '" + publisher + "', '" + copyright + "', '" + description + "')" );
         
-        st.executeUpdate("insert into `Reference` (`textID`, `referenceISBN`, `type`) values (" + textID + "', '" + isbn + "', '" + type + "')" );
+        st.executeUpdate("insert into `Reference` (`textID`, `isbn`, `type`) values (" + textID + "', '" + isbn + "', '" + type + "')" );
 	
         st.executeUpdate("insert into `Auction_Held` (`auctionID`, `textID`, `price`,  `minimum`, `closing`) values (" + auctionID + "', '" + textID + "', '" + price + "', '" + min_price + "', '" + closing_date + "')" );
 

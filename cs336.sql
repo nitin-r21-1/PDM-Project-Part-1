@@ -111,12 +111,16 @@ create table `Earnings`(`end_id` int,
                         foreign key (`textID`) references `Text_Sells` (`textID`),
                         foreign key (`auctionID`) references `Auction_Held` (`auctionID`));
 
-show tables;
-insert into `User` (`id`, `username`, `password`) values (1, 'Admin', 'Password');
-insert into `User` (`id`, `username`, `password`) values (2, 'Rep', 'Repwd');
+#show tables;
+insert into `User` (`id`, `username`, `password`) values (1, 'Admin', 'password');
+insert into `User` (`id`, `username`, `password`) values (2, 'Rep', 'repwd');
+insert into `User` (`id`, `username`, `password`) values (3, 'End', 'endpwd');
 insert into `Admin` (`id`) values (1);
 insert into `Representative` (`id`) values (2);
- 
-#select * from `User`;
+insert into `End_User` (`id`) values (3);
+insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`, `textType`) values (1, 3, 'New', 'Riordan', 'Percy Jackson', 'Hyperion', 2008, 'Greek Mythology for kids', 'Book');
+insert into `Auction_Held` (`auctionID`, `textID`, `price`, `minimum`, `increment`, `current`, `closing`, `closed`) values (1, 1, 10, 15, 1, 0, '2021-4-23 23:59:59', false); 
+
+select * from `User`;
 #select * from `Admin`;
 #select * from `Representative`;

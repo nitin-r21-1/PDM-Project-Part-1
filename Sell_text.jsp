@@ -28,18 +28,21 @@
         <%} else if ((request.getParameter("textType").equals("Reference"))){ %>
                 ISBN: <input type = "text" name= "isbn"/> <br/>
                    Type: <input type = "text" name= "type"/> <br/>
-        <% } %>
+        <% } String tType = request.getParameter("textType"); session.setAttribute("tType", tType);%>
                Condition: <input type = "text" name= "condition"/> <br/>		
                Author: <input type="text" name="author"/> <br/>
                Title:<input type="text" name="title"/> <br/>
                Publisher: <input type = "text" name= "publisher"/> <br/>
                Copyright: <input type = "text" name= "copyright"/> <br/>
                Description: <input type = "text" name= "description"/> <br/>
-               Enter Auction Information:
+               Enter Auction Information: <br/>
+               
                Starting Price: <input type = "text" name= "price" /> <br/>
                Minimum Price: <input type = "text" name= "min_price" /> <br/>
-               Closing Date: <input type = "datetime" name= "closing_date" /> <br/>
-               <input type="submit" value="Create Book Auction"/>
+               Automatic Increment: <input type = 'text' name="increment" /> <br/>
+               Closing Date and Time: <input type = "datetime" name= "closing_date" /> <br/>
+               (YYYY-MM-DD HH:MM:SS) <br/>
+               <input type="submit" value="Create Text Auction"/>
             </form>
 	
 </body>

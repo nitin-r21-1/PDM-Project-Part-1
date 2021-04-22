@@ -16,7 +16,7 @@
         String userIds = "";
         if (rs0.next()) {
         	userIds = rs0.getString(1);
-        	int userId = Integer.parseInt(String.valueOf(userIds.charAt(0))) + 1;
+        	int userId = Integer.parseInt(String.valueOf(userIds.charAt(0)));
         	session.setAttribute("userid", userId);
         }
         out.println("welcome " + user);

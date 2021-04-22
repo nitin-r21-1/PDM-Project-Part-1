@@ -24,12 +24,14 @@ table.center {
 
 <%
 	Class.forName("com.mysql.jdbc.Driver");
-	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "Swig2!6500");
+	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "root");
 	Statement st1 = con.createStatement();
 	Statement st2 = con.createStatement();
 	ResultSet rs1,rs2;
-	rs1 = st1.executeQuery("select `textID`, `title`, `author`, `condition`, `textType` from `Text_Sells`");
-	rs2 = st2.executeQuery("select `price`, `current`, `closing` from `Auction_Held` where `closed` = False");
+	//rs1 = st1.executeQuery("select `textID`, `title`, `author`, `condition`, `textType` from `Text_Sells`");
+	//rs2 = st2.executeQuery("select `price`, `current`, `closing` from `Auction_Held` where `closed` = False");
+	rs1 = st1.executeQuery("select * from `Text_Sells`");
+	rs2 = st2.executeQuery("select * from `Auction_Held` where `closed` = False");
 %>
 
 <body>

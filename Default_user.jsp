@@ -33,7 +33,7 @@
 	<br>
 	
 	
-	<form action= "View_auctions.jsp" method = "GET">
+	<form action= "view_auctions.jsp" method = "GET">
 		<input type="submit" value = "View Auctions">
 	</form>
 	

@@ -39,7 +39,7 @@ create table `Text_Sells`(`textID` int,
                             `publisher` varchar(50),
                             `copyright` int,
                             `description` varchar(280),
-                            `type` varchar(10),
+                            `textType` varchar(10),
                             primary key (`textID`),
 							foreign key (`end_id`) references `End_User` (`id`));
                                 

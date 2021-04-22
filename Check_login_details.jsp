@@ -20,9 +20,9 @@
         	session.setAttribute("userid", userId);
         }
         out.println("welcome " + user);
-        out.println("<a href='logout.jsp'>Log out</a>");
+        out.println("<a href='Logout.jsp'>Log out</a>");
         response.sendRedirect("Default_user.jsp");
     } else {
-        out.println("Invalid password <a href='login.jsp'>try again</a>");
+        out.println("Invalid password <a href='Login.jsp'>try again</a>");
     }
 %>

@@ -29,13 +29,13 @@
                 ISBN: <input type = "text" name= "isbn"/> <br/>
                    Type: <input type = "text" name= "type"/> <br/>
         <% } %>
-        
                Condition: <input type = "text" name= "condition"/> <br/>		
                Author: <input type="text" name="author"/> <br/>
                Title:<input type="text" name="title"/> <br/>
                Publisher: <input type = "text" name= "publisher"/> <br/>
                Copyright: <input type = "text" name= "copyright"/> <br/>
                Description: <input type = "text" name= "description"/> <br/>
+               Enter Auction Information:
                Starting Price: <input type = "text" name= "price" /> <br/>
                Minimum Price: <input type = "text" name= "min_price" /> <br/>
                Closing Date: <input type = "datetime" name= "closing_date" /> <br/>

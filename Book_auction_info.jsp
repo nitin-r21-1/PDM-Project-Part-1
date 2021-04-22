@@ -2,22 +2,19 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 
 <%
-
-
-
-	
 	String condition = request.getParameter("condition");
 	String author = request.getParameter("author");
 	String title = request.getParameter("title");
 	String publisher = request.getParameter("publisher");
 	String copyright = request.getParameter("copyright");
 	String description = request.getParameter("description");
+	String textType = request.getParameter("textType");
 	String price = request.getParameter("price");
 	String min_price = request.getParameter("min_price");
 	String closing_date = request.getParameter("closing_date");
-    
+	
     Class.forName("com.mysql.jdbc.Driver");
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "root");
+    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "Swig2!6500");
     Statement st = con.createStatement();
     
     ResultSet rs1, rs2;
@@ -39,7 +36,7 @@
         String cover = request.getParameter("cover");
         
        
-        st.executeUpdate("insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`) values (" + textID + "', '" + session.getAttribute("userid") + "', '" + condition + "', '" + author + "', '" + title + "', '" + publisher + "', '" + copyright + "', '" + description + "')" );
+        st.executeUpdate("insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`, `type`) values (" + textID + "', '" + session.getAttribute("userid") + "', '" + condition + "', '" + author + "', '" + title + "', '" + publisher + "', '" + copyright + "', '" + description + "', '" + textType + "')" );
         
         st.executeUpdate("insert into `Book` (`textID`, `isbn`, `genre`, `cover`) values (" + textID + "', '" + isbn + "', '" + genre + "', '" + cover + "')" );
 		
@@ -54,7 +51,7 @@
     	 String issue = request.getParameter("issue");
     	 
         
-    	st.executeUpdate("insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`) values (" + count + ", '" + textID + "', '" + session.getAttribute("userid") + "', '" + condition + "', '" + author + "', '" + title + "', '" + publisher + "', '" + copyright + "', '" + description + "')" );
+    	st.executeUpdate("insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`, `type`) values (" + textID + "', '" + session.getAttribute("userid") + "', '" + condition + "', '" + author + "', '" + title + "', '" + publisher + "', '" + copyright + "', '" + description + "', '" + textType + "')" );
         
         st.executeUpdate("insert into `Magazine` (`textID`, `issn`, `volume`, `issue`) values (" + textID + "', '" + issn + "', '" + volume + "', '" + issue + "')" );
         
@@ -69,7 +66,7 @@
     	String type = request.getParameter("type");
     	
     	
-        st.executeUpdate("insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`) values (" + count + ", '" + textID + "', '" + session.getAttribute("userid") + "', '" + condition + "', '" + author + "', '" + title + "', '" + publisher + "', '" + copyright + "', '" + description + "')" );
+    	st.executeUpdate("insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`, `type`) values (" + textID + "', '" + session.getAttribute("userid") + "', '" + condition + "', '" + author + "', '" + title + "', '" + publisher + "', '" + copyright + "', '" + description + "', '" + textType + "')" );
         
         st.executeUpdate("insert into `Reference` (`textID`, `isbn`, `type`) values (" + textID + "', '" + isbn + "', '" + type + "')" );
 	

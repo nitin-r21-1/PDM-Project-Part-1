@@ -19,9 +19,12 @@ table, th, td {
 <body>
 <%
     String auctionID = request.getParameter("id");
+	if (auctionID == null || auctionID.isEmpty() ){
+		auctionID = session.getAttribute("auction").toString();
+	}
 	session.setAttribute("auction", auctionID);
 	Class.forName("com.mysql.jdbc.Driver");
-	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "Swig2!6500");
+	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "root");
 	Statement st1 = con.createStatement();
 	Statement st2 = con.createStatement();
 	Statement st3 = con.createStatement();
@@ -29,18 +32,18 @@ table, th, td {
 	Statement st5 = con.createStatement();
 
 	ResultSet rs1, rs2, rs3, rs4, rs5;
-	rs1 = st1.executeQuery("select * from `Text_Sells` where textID = " + auctionID);
+	rs1 = st1.executeQuery("select * from `Text_Sells` where `textID` = " + auctionID);
 	rs1.next();
 	
 	String textType = rs1.getString("textType");
 	if (textType.equals("Book")){
-		rs2 = st2.executeQuery("select * from `Book` where textID = " + auctionID);
+		rs2 = st2.executeQuery("select * from `Book` where `textID` = " + auctionID);
 	}
 	else if (textType.equals("Magazine")){
-		rs2 = st2.executeQuery("select * from `Magazine` where textID = " + auctionID);
+		rs2 = st2.executeQuery("select * from `Magazine` where `textID` = " + auctionID);
 	}
 	else{
-		rs2 = st2.executeQuery("select * from `Reference` where textID = " + auctionID);
+		rs2 = st2.executeQuery("select * from `Reference` where `textID` = " + auctionID);
 	}
 	rs2.next();
 %>
@@ -72,7 +75,7 @@ table, th, td {
 
 <h3> Auction Info </h3>  <hr/>
 
-<% rs3 = st3.executeQuery("select * from `Auction_Held` where auctionID = " + auctionID); rs3.next(); %>
+<% rs3 = st3.executeQuery("select * from `Auction_Held` where `auctionID` = " + auctionID); rs3.next(); %>
 <p> Initial Price: $ <%= rs3.getString("price") %> </p>
 <p> Current Bid: $ <%= rs3.getString("current") %></p>
 <p> Closing: <%= rs3.getString("closing") %> </p> <br/>
@@ -86,7 +89,7 @@ table, th, td {
 </form>
 
 <h3> Bids Placed </h3> 
-<% rs4 = st4.executeQuery("select * from `Bid_PlacesIn` where auctionID = " + auctionID);%>
+<% rs4 = st4.executeQuery("select * from `Bid_PlacesIn` where `auctionID` = " + auctionID);%>
 
 <table style="width:20%">
 		<tr>
@@ -99,9 +102,9 @@ table, th, td {
 		<tr>
 			<!-- <td> <a href=product_details.jsp?id=<%= rs1.getString("textID") %>> <%= rs1.getString("title") %> </a></td> -->
 			<%  String uid = rs4.getString("end_id");
-				rs5 = st5.executeQuery("Select username from `User` where id = " + uid ); rs5.next();%>
+				rs5 = st5.executeQuery("Select `username` from `User` where `id` = " + uid ); rs5.next();%>
 			<td><%= rs5.getString("username") %></td>
-			<td><%= rs4.getString("value") %></td>
+			<td>$<%= rs4.getString("value") %></td>
 			<td><%= rs4.getString("placement") %></td>
 		</tr>
 		<% } %>

@@ -28,7 +28,8 @@ table.center {
 	Statement st2 = con.createStatement();
 	ResultSet rs1,rs2;
 	answer_questions = st1.executeQuery("INSERT ANSWER INTO QANDA_ASKSANSWERS");
-	rs2 = st2.executeQuery("select * from `Auction_Held` where `closed` = False");
+	modify_accounts = st2.executeQuery("select * from `Auction_Held` where `closed` = False");
+	modify_auctions = st3.executeQuery("select * from `Auction_Held` where `closed` = False");
 %>
 
 <body>

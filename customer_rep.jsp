@@ -27,9 +27,7 @@ table.center {
 	Statement st1 = con.createStatement();
 	Statement st2 = con.createStatement();
 	ResultSet rs1,rs2;
-	//rs1 = st1.executeQuery("select `textID`, `title`, `author`, `condition`, `textType` from `Text_Sells`");
-	//rs2 = st2.executeQuery("select `price`, `current`, `closing` from `Auction_Held` where `closed` = False");
-	rs1 = st1.executeQuery("select * from `Text_Sells`");
+	answer_questions = st1.executeQuery("INSERT ANSWER INTO QANDA_ASKSANSWERS");
 	rs2 = st2.executeQuery("select * from `Auction_Held` where `closed` = False");
 %>
 

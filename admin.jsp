@@ -36,28 +36,7 @@ table.center {
 	
 	<h2>Here are the sales reports!</h2>
 	<br>
-	
-	<table class ="center" style="width:90%">
-		<tr>
-		
-		<% while (rs1.next() && rs2.next()) {%>
-		<tr>
-			<td><%= rs1.getString(total) %></td>
-		</tr>
 
-    <th>Earnings</th>
-			<th>User</th>
-		
-		<% while (rs1.next() && rs2.next()) {%>
-		<tr>
-			<td><%= rs1.getString("earnings") %></td>
-			<td><%= rs1.getString("user") %></td>
-		</tr>
-		<% } %>
-	</table>
-  <!DOCTYPE html>
-<html>
-<body>
 
 	
 	<table class ="center" style="width:90%">
@@ -84,7 +63,7 @@ table.center {
     <table style="width:100%">
     <h3>Total Earnings</h3>
   <tr>
-    <td>Jill</td>
+    <td></td>
 
   </tr>
 </table>

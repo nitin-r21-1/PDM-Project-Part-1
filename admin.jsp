@@ -27,8 +27,8 @@ table.center {
 	Statement st1 = con.createStatement();
 	Statement st2 = con.createStatement();
 	ResultSet rs1,rs2;
-	rs1 = st1.executeQuery("select * from `Text_Sells`");
-	rs2 = st2.executeQuery("select * from `Auction_Held` where `closed` = False");
+	rs1 = st1.executeQuery("");
+	rs2 = st2.executeQuery("");
 %>
 
 <body>
@@ -42,8 +42,7 @@ table.center {
 		
 		<% while (rs1.next() && rs2.next()) {%>
 		<tr>
-			<td><%= rs1.getString("earnings") %></td>
-			<td><%= rs1.getString("user") %></td>
+			<td><%= rs1.getString(total) %></td>
 		</tr>
 
     <th>Earnings</th>

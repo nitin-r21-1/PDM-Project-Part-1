@@ -119,6 +119,7 @@ insert into `Admin` (`id`) values (1);
 insert into `Representative` (`id`) values (2);
 insert into `End_User` (`id`) values (3);
 insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`, `textType`) values (1, 3, 'New', 'Riordan', 'Percy Jackson', 'Hyperion', 2008, 'Greek Mythology for kids', 'Book');
+insert into `Book` (`textID`, `isbn`, `genre`, `cover`) values (1, '2000', 'Fiction', 'Paperback');
 insert into `Auction_Held` (`auctionID`, `textID`, `price`, `minimum`, `increment`, `current`, `closing`, `closed`) values (1, 1, 10, 15, 1, 0, '2021-4-23 23:59:59', false); 
 
 select * from `User`;

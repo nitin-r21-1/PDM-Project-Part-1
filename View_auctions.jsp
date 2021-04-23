@@ -24,7 +24,7 @@ table.center {
 
 <%
 	Class.forName("com.mysql.jdbc.Driver");
-	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "root");
+	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "Swig2!6500");
 	Statement st1 = con.createStatement();
 	Statement st2 = con.createStatement();
 	ResultSet rs1,rs2;
@@ -54,7 +54,7 @@ table.center {
 		<% while (rs1.next() && rs2.next()) {%>
 		<tr>
 			<td><%= rs1.getString("textType") %></td>
-			<td><%= rs1.getString("title") %></td>
+			<td> <a href=product_details.jsp?id=<%= rs1.getString("textID") %>> <%= rs1.getString("title") %> </a></td>
 			<td><%= rs1.getString("author") %></td>
 			<td><%= rs1.getString("condition") %></td>
 			<td>$<%= rs2.getString("price") %></td>

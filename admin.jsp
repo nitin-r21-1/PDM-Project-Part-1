@@ -40,6 +40,7 @@ table.center {
 	rs11 = st2.executeQuery("");
 	rs12 = st2.executeQuery("");
 
+
 <body>
 	<h1>Welcome Admin!</h1>
 	
@@ -63,7 +64,6 @@ table.center {
 	
 		<% while (rs1.next() && rs2.next()) {%>
 		<tr>
-			<td><%= rs1.getString("total") %></td>
 		</tr>
         
 		<% } %>
@@ -72,6 +72,23 @@ table.center {
     <table style="width:100%">
     <h3>Total Earnings</h3>
   <tr>
+	<% while (rs1.next() && rs2.next()) {%>
+		<tr>
+			<td><%= rs1.getString("total") %></td>
+		</tr>
+    <td></td>
+
+  </tr>
+</table>
+<table style="width:100%">
+    <h3>Earnings Per Item Type</h3>
+  <tr>
+	<% while (rs1.next() && rs2.next()) {%>
+		<tr>
+			<td><%= rs1.getString("book") %></td>
+			<td><%= rs1.getString("magazine") %></td>
+			<td><%= rs1.getString("reference") %></td>
+		</tr>
     <td></td>
 
   </tr>

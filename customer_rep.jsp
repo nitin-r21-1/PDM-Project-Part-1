@@ -28,14 +28,14 @@ table.center {
 	Statement st2 = con.createStatement();
 	ResultSet rs1,rs2;
 	answer_questions = st1.executeQuery("INSERT ANSWER INTO QANDA_ASKSANSWERS");
-	modify_accounts = st2.executeQuery("select * from `Auction_Held` where `closed` = False");
-	modify_auctions = st3.executeQuery("select * from `Auction_Held` where `closed` = False");
+	modify_accounts = st2.executeQuery();
+	modify_auctions = st3.executeQuery();
 %>
 
 <body>
 	<h1>Welcome Customer Rep!</h1>
 	
-	<h2>Here are the sales reports!</h2>
+	<h2>Here are your functions</h2>
 	<br>
 	
 	<table class ="center" style="width:90%">
@@ -47,43 +47,17 @@ table.center {
 			<td><%= rs1.getString("user") %></td>
 		</tr>
 
-    <th>Earnings</th>
+    <th>Answer Questions</th>
 			<th>User</th>
 		
 		<% while (rs1.next() && rs2.next()) {%>
 		<tr>
-			<td><%= rs1.getString("earnings") %></td>
-			<td><%= rs1.getString("user") %></td>
-		</tr>
-		<% } %>
-	</table>
-  <!DOCTYPE html>
-<html>
-<body>
+			<td><%= rs1.getString("questions") %></td>
 
-	
-	<table class ="center" style="width:90%">
-		<tr>
-            <h3>Earnings by End-User</h3>
-        	<th>User</th>
-			<th>Earnings</th>
-			
-		
-		<tr>
-      <% while (rs1.next() && rs2.next()) {%>
-			<td><%= rs1.getString("user") %></td>
-			<td><%= rs1.getString("earnings") %></td>
 		</tr>
-	
-		<% while (rs1.next() && rs2.next()) {%>
-		<tr>
-			<td><%= rs1.getString("total") %></td>
-		</tr>
-        
 		<% } %>
 	</table>
   
-    <table style="width:100%">
     <h3>Total Earnings</h3>
   <tr>
     <td>Jill</td>

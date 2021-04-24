@@ -28,8 +28,10 @@ table.center {
 	Statement st2 = con.createStatement();
 	ResultSet rs1,rs2;
 	answer_questions = st1.executeQuery("INSERT ANSWER INTO QANDA_ASKSANSWERS");
-	modify_accounts = st2.executeQuery();
-	modify_auctions = st3.executeQuery();
+	modify_accounts = st2.executeQuery('INSERT ACCDID INTO ACCOUNTS');
+	delete_account = st3.executeQuery('DELETE ACCID FROM ACCOUNTS');
+	modify_auction = st2.executeQuery('INSERT ACCDID INTO ACCOUNTS');
+	delete_auction = st3.executeQuery('DELETE ACCID FROM ACCOUNTS');
 %>
 
 <body>
@@ -39,7 +41,7 @@ table.center {
 	<br>
 	
 	<table class ="center" style="width:90%">
-		<tr>
+		<h3>          </h3>
 		
 		<% while (rs1.next() && rs2.next()) {%>
 		<tr>
@@ -55,12 +57,18 @@ table.center {
 			<td><%= rs1.getString("questions") %></td>
 
 		</tr>
-		<% } %>
+
+		
+	
+	
 	</table>
   
-    <h3>Total Earnings</h3>
-  <tr>
-    <td>Jill</td>
+    <form action="Check_login_details.jsp" method="POST">
+		QuestionID: <input type="text" name="id"/> <br/>
+		Response: <input type="text" name="response"/> <br/>
+		
+		<input type="submit" value="Answer Question"/>
+	 </form>
 
   </tr>
 </table>

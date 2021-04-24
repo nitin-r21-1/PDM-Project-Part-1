@@ -36,33 +36,8 @@ table.center {
 
 <body>
 	<h1>Welcome Customer Rep!</h1>
-	
-	<h2>Here are your functions</h2>
 	<br>
 	
-	<table class ="center" style="width:90%">
-		<h3>          </h3>
-		
-		<% while (rs1.next() && rs2.next()) {%>
-		<tr>
-			<td><%= rs1.getString("earnings") %></td>
-			<td><%= rs1.getString("user") %></td>
-		</tr>
-
-    <th>Answer Questions</th>
-			<th>User</th>
-		
-		<% while (rs1.next() && rs2.next()) {%>
-		<tr>
-			<td><%= rs1.getString("questions") %></td>
-
-		</tr>
-
-		
-	
-	
-	</table>
-  
     <form action="Check_login_details.jsp" method="POST">
 		QuestionID: <input type="text" name="id"/> <br/>
 		Response: <input type="text" name="response"/> <br/>

@@ -28,8 +28,7 @@ table.center {
 	Statement st1 = con.createStatement();
 	Statement st2 = con.createStatement();
 	ResultSet rs1,rs2;
-	rs1 = st1.executeQuery("SELECT Question FROM QA););
-	rs2 = st2.executeQuery("SELECT Answer FROM QA);
+	rs1 = st1.executeQuery(select * from `QandA_AsksAnswers`););
 %>
 
 <body>
@@ -38,14 +37,20 @@ table.center {
 	
 	<table class ="center" style="width:90%">
 		<tr>
+			<th>Qid</th>
 			<th>Question</th>
 			<th>Answer</th>
+			<th>Rep_id</th>
+			<th>End_id</th>
 		</tr>
 		
-		<% while (rs1.next() && rs2.next()) {%>
+		<% while (rs1.next()) {%>
 		<tr>
+			<td><%= rs1.getString("Qid") %></td>
 			<td><%= rs1.getString("Question") %></td>
-			<td>$<%= rs2.getString("Answer") %></td>
+			<td><%= rs1.getString("Answer") %></td>
+			<td><%= rs1.getString("Rep_id") %></td>
+			<td><%= rs1.getString("End_id") %></td>
 		</tr>
 		<% } %>
 	</table>

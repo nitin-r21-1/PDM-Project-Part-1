@@ -44,7 +44,26 @@ table.center {
 		
 		<input type="submit" value="Answer Question"/>
 	 </form>
-
+	 <form action="/action_page.php">
+		<label for="fname">Delete Account (Users):</label><br>
+		<input type="text" id="fname" name="fname" value="John"><br>
+		<input type="submit" value="Submit">
+	 </form> 
+	 <form action="/action_page.php">
+		<label for="fname">Modify Account (Users):</label><br>
+		<input type="text" id="fname" name="fname" value="John"><br>
+		<input type="submit" value="Submit">
+	 </form>
+	 <form action="/action_page.php">
+		<label for="fname">Remove Bid:</label><br>
+		<input type="text" id="fname" name="fname" value="John"><br>
+		<input type="submit" value="Submit">
+	 </form> 
+	 <form action="/action_page.php">
+		<label for="fname">Remove Auction:</label><br>
+		<input type="text" id="fname" name="fname" value="John"><br>
+		<input type="submit" value="Submit">
+	 </form> 
   </tr>
 </table>
 </body>

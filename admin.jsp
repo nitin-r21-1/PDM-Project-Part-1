@@ -81,6 +81,19 @@ table.center {
   </tr>
 </table>
 <table style="width:100%">
+    <h3>Earnings Per Item</h3>
+  <tr>
+	<% while (rs1.next() && rs2.next()) {%>
+		<tr>
+			<td><%= rs1.getString("book") %></td>
+			<td><%= rs1.getString("magazine") %></td>
+			<td><%= rs1.getString("reference") %></td>
+		</tr>
+    <td></td>
+
+  </tr>
+</table>
+<table style="width:100%">
     <h3>Earnings Per Item Type</h3>
   <tr>
 	<% while (rs1.next() && rs2.next()) {%>
@@ -93,5 +106,47 @@ table.center {
 
   </tr>
 </table>
+<table style="width:100%">
+    <h3>Best Buyer</h3>
+  <tr>
+	<% while (rs1.next() && rs2.next()) {%>
+		<tr>
+			<td><%= rs1.getString("book") %></td>
+			<td><%= rs1.getString("magazine") %></td>
+			<td><%= rs1.getString("reference") %></td>
+		</tr>
+    <td></td>
+
+  </tr>
+</table>
+<table style="width:100%">
+    <h3>Best Selling Item</h3>
+  <tr>
+	<% while (rs1.next() && rs2.next()) {%>
+		<tr>
+			<td><%= rs1.getString("book") %></td>
+			<td><%= rs1.getString("magazine") %></td>
+			<td><%= rs1.getString("reference") %></td>
+		</tr>
+    <td></td>
+
+  </tr>
+</table>
+	<form action="/action_page.php">
+		<label for="fname">Create Account (Customer Rep):</label><br>
+		<input type="text" id="fname" name="fname" value="John"><br>
+		<input type="submit" value="Submit">
+	 </form> 
+<form>
+
+
+
+
+
+    
+</form>
+
+
+
 </body>
 </html>

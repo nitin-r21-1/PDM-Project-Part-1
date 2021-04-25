@@ -30,12 +30,14 @@ table.center {
 	Statement st4 = con.createStatement();
 	Statement st5 = con.createStatement();
 	Statement st6 = con.createStatement();
-	ResultSet rs1,rs2, total, booksales, magsales, refsales, allsales;
+	Statement st7 = con.createStatement();
+	ResultSet rs1,rs2, total, booksales, magsales, refsales, allsales, mostcommon;
 	total = st2.executeQuery("select sum(price) from `Earnings`");
 	booksales = st3.executeQuery("select sum(price) from `Earnings` where type='Book'");
 	magsales = st4.executeQuery("select sum(price) from `Earnings` where type='Magazine'");
 	refsales = st5.executeQuery("select sum(price) from `Earnings` where type='Reference'");
 	allsales = st6.executeQuery("select end_id, sum(price) from `Earnings` group by end_id");
+	mostcommon = st7.executeQuery("SELECT title, COUNT(*) FROM text_sells GROUP BY title ORDER BY COUNT(*) DESC LIMIT 5");
 	total.next();
 	String totalprice = total.getString("sum(price)");
 	booksales.next();
@@ -91,11 +93,12 @@ table.center {
 <table style="width:100%">
     <h3>Earnings Per Item</h3>
   <tr>
-	<%-- while (rs1.next() && rs2.next()) {--%>
+	<% while (allsales.next()) {%>
 		<tr>
-			<td><%--= rs1.getString("book") --%></td>
-			<td><%--= rs1.getString("magazine") --%></td>
-			<td><%--= rs1.getString("reference") --%></td>
+			<td><%= allsales.getString("textID") %></td>
+			<td><%= allsales.getString("sum(price)") %></td>
+		</tr>
+		<% } %>
 		</tr>
     <td></td>
 
@@ -104,7 +107,6 @@ table.center {
 <table style="width:100%">
     <h3>Earnings Per Item Type</h3>
   <tr>
-	<%-- while (rs1.next() && rs2.next()) {--%>
 		<tr>
 			<h4>Book</h4>
 			<p> $<%= bookearnings %></p>
@@ -128,20 +130,22 @@ table.center {
   </tr>
 </table>
 <table style="width:100%">
-    <h3>Best Selling Item</h3>
+    <h3>Best Selling Items</h3>
   <tr>
-	<%-- while (rs1.next() && rs2.next()) {--%>
+     <th>Title:</th><th>Number Sold:</th>
+	<% while (mostcommon.next()) {%>
+	    
 		<tr>
-			<td><%--= rs1.getString("book") --%></td>
-			<td><%--= rs1.getString("magazine") --%></td>
-			<td><%--= rs1.getString("reference") --%></td>
+			<td><%= mostcommon.getString("title") %></td>
+			<td><%= mostcommon.getString("COUNT(*)") %></td>
 		</tr>
-    <td></td>
+		<% } %>
+		</tr>
 
   </tr>
 </table>
 	<form action="Check_new_account.jsp" method="POST">
-		<label for="fname">Create Account (Customer Rep):</label><br>
+		<h3><label for="fname">Create Account (Customer Rep):</label></h3><br>
        First Name: <input type = "text" name= "first_name"/> <br/>
        Last Name: <input type = "text" name= "last_name"/> <br/>
        Email: <input type = "text" name= "email"/> <br/>

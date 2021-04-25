@@ -27,13 +27,23 @@ table.center {
 	Statement st1 = con.createStatement();
 	Statement st2 = con.createStatement();
 	Statement st3 = con.createStatement();
-	ResultSet rs1,rs2, total, booksales;
+	Statement st4 = con.createStatement();
+	Statement st5 = con.createStatement();
+	Statement st6 = con.createStatement();
+	ResultSet rs1,rs2, total, booksales, magsales, refsales, allsales;
 	total = st2.executeQuery("select sum(price) from `Earnings`");
 	booksales = st3.executeQuery("select sum(price) from `Earnings` where type='Book'");
+	magsales = st4.executeQuery("select sum(price) from `Earnings` where type='Magazine'");
+	refsales = st5.executeQuery("select sum(price) from `Earnings` where type='Reference'");
+	allsales = st6.executeQuery("select end_id, sum(price) from `Earnings` group by end_id");
 	total.next();
 	String totalprice = total.getString("sum(price)");
 	booksales.next();
 	String bookearnings = booksales.getString("sum(price)");
+	magsales.next();
+	String magearnings = magsales.getString("sum(price)");
+	refsales.next();
+	String refearnings = refsales.getString("sum(price)");
 	%>
 	<%--
 	
@@ -60,6 +70,12 @@ table.center {
             <h3>Earnings by End-User</h3>
         	<th>User</th>
 			<th>Earnings</th>
+			<% while (allsales.next()) {%>
+		<tr>
+			<td><%= allsales.getString("end_id") %></td>
+			<td><%= allsales.getString("sum(price)") %></td>
+		</tr>
+		<% } %>
 		</tr>
 	</table>
   
@@ -93,9 +109,10 @@ table.center {
 			<h4>Book</h4>
 			<p> $<%= bookearnings %></p>
 			<h4>Magazine</h4>
+			<p> $<%= magearnings %></p>
 			<h4>Reference</h4>
+			<p> $<%= refearnings %></p>
 		</tr>
-    <td></td>
 
   </tr>
 </table>

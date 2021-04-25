@@ -3,34 +3,39 @@
 
 <%
 	
-    String user = request.getParameter("username");   
+    String user = request.getParameter("username");
     String pwd = request.getParameter("password");
-    String firstname = request.getParameter("first_name");
-    String lastname = request.getParameter("last_name");
-    String email = request.getParameter("email");
-    String address = request.getParameter("address");
+    if (user == null || user.equals("") || pwd == null || pwd.equals("")){
+    	response.sendRedirect("Create_account.jsp");
+    }
+    else{
+    	String firstname = request.getParameter("first_name");
+    	String lastname = request.getParameter("last_name");
+    	String email = request.getParameter("email");
+    	String address = request.getParameter("address");
     
-    Class.forName("com.mysql.jdbc.Driver");
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "root");
-    Statement st = con.createStatement();
+    	Class.forName("com.mysql.jdbc.Driver");
+    	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "root");
+    	Statement st1 = con.createStatement();
+    	Statement st2 = con.createStatement();
+    	Statement st3 = con.createStatement();
+    	Statement st4 = con.createStatement();
     
-    ResultSet rs1;
-    rs1 = st.executeQuery("select * from `User` where `username`='" + user +"'");
-    if (rs1.next()) {
-    	out.println("Username is already taken. <a href='login.jsp'>try again</a>");
-    } else {
-    	ResultSet rs0, rs2;
-    	rs0 = st.executeQuery("select count(*) from `User`");
-    	String countUser = "";
-    	while (rs0.next()){
-    		countUser = rs0.getString(1);
+    	ResultSet rs1, rs2;
+    	rs1 = st1.executeQuery("select * from `User` where `username`='" + user +"'");
+    	int count = 0;
+    	if (rs1.next()) {
+    		out.println("Username is already taken. <a href='Create_account.jsp'>try again</a>");
+    	} else {
+    		rs2 = st2.executeQuery("select count(*) from `User`");
+    		while (rs2.next()){
+    			count = Integer.parseInt(rs2.getString("count(*)")) + 1;
+    		}
+        	st3.executeUpdate("insert into `User` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `address`) values (" + count + ", '" + user + "', '" + pwd + "', '" + firstname + "', '" + lastname + "', '" + email + "', '" + address + "')" );
+        	st4.executeUpdate("insert into `End_User` (`id`) values (" + count + ")");
+    		session.setAttribute("user", user); // the username will be stored in the session
+    		session.setAttribute("userid", count);
+        	response.sendRedirect("Default_user.jsp");
     	}
-    	int count = Integer.parseInt(String.valueOf(countUser.charAt(0))) + 1;
-        st.executeUpdate("insert into `User` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `address`) values (" + count + ", '" + user + "', '" + pwd + "', '" + firstname + "', '" + lastname + "', '" + email + "', '" + address + "')" );
-    	session.setAttribute("user", user); // the username will be stored in the session
-        session.setAttribute("userid", count);
-        //out.println("welcome " + userid);
-        //out.println("<a href='logout.jsp'>Log out</a>");
-        response.sendRedirect("Default_customer.jsp");
     }
 %>

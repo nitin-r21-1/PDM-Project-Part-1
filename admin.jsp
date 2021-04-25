@@ -31,13 +31,17 @@ table.center {
 	Statement st5 = con.createStatement();
 	Statement st6 = con.createStatement();
 	Statement st7 = con.createStatement();
-	ResultSet rs1,rs2, total, booksales, magsales, refsales, allsales, mostcommon;
+	Statement st8 = con.createStatement();
+	Statement st9 = con.createStatement();
+	ResultSet total, booksales, magsales, refsales, allsales, mostcommon, salesbyitem, bestbuyer;
 	total = st2.executeQuery("select sum(price) from `Earnings`");
 	booksales = st3.executeQuery("select sum(price) from `Earnings` where type='Book'");
 	magsales = st4.executeQuery("select sum(price) from `Earnings` where type='Magazine'");
 	refsales = st5.executeQuery("select sum(price) from `Earnings` where type='Reference'");
 	allsales = st6.executeQuery("select end_id, sum(price) from `Earnings` group by end_id");
 	mostcommon = st7.executeQuery("SELECT title, COUNT(*) FROM text_sells GROUP BY title ORDER BY COUNT(*) DESC LIMIT 5");
+	salesbyitem = st8.executeQuery("select * from `Earnings` order by textID");
+	bestbuyer = st9.executeQuery("SELECT winner, sum(price) from Auction_held group by winner");
 	total.next();
 	String totalprice = total.getString("sum(price)");
 	booksales.next();
@@ -93,14 +97,16 @@ table.center {
 <table style="width:100%">
     <h3>Earnings Per Item</h3>
   <tr>
-	<% while (allsales.next()) {%>
+       <th>ItemID</th>
+		<th>Earnings</th>
+	<% while (salesbyitem.next()) {%>
 		<tr>
-			<td><%= allsales.getString("textID") %></td>
-			<td><%= allsales.getString("sum(price)") %></td>
+		    
+			<td><%= salesbyitem.getString("textID") %></td>
+			<td><%= salesbyitem.getString("price") %></td>
 		</tr>
 		<% } %>
 		</tr>
-    <td></td>
 
   </tr>
 </table>
@@ -121,13 +127,16 @@ table.center {
 <table style="width:100%">
     <h3>Best Buyer</h3>
   <tr>
-	<%-- while (rs1.next() && rs2.next()) {--%>
+       <th>BuyerID</th>
+		<th>Amount Spent</th>
+	<% while (bestbuyer.next()) {%>
 		<tr>
-			<td><%--= rs1.getString("book") --%></td>
+		    
+			<td><%= bestbuyer.getString("winner") %></td>
+			<td><%= bestbuyer.getString("sum(price)") %></td>
 		</tr>
-    <td></td>
-
-  </tr>
+		<% } %>
+		</tr>
 </table>
 <table style="width:100%">
     <h3>Best Selling Items</h3>
@@ -146,12 +155,15 @@ table.center {
 </table>
 	<form action="Check_new_account.jsp" method="POST">
 		<h3><label for="fname">Create Account (Customer Rep):</label></h3><br>
+	   Id: <input type = "text" name= "id"/> <br/>
        First Name: <input type = "text" name= "first_name"/> <br/>
        Last Name: <input type = "text" name= "last_name"/> <br/>
        Email: <input type = "text" name= "email"/> <br/>
        Address: <input type = "text" name= "address"/> <br/>		
        Username: <input type="text" name="username"/> <br/>
        Password:<input type="password" name="password"/> <br/>
+       <%-- st7.executeQuery("insert into `Representative` (`id`) values (2)";);--%>
+       
 	   <input type="submit" value="Create Account"/>
 	</form>
 	 </form> 

@@ -103,6 +103,7 @@ table.center {
 
 <body>
 	<h1>Bid-a-Text!</h1>
+	<a href="Logout.jsp">Log out</a>
 	
 	<h2>Ongoing Auctions</h2>
 	<br>

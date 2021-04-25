@@ -17,6 +17,7 @@ table, th, td {
 </head>
 <body>
 	<h1>Welcome to Bid-A-Text, <%=session.getAttribute("user") %>!</h1>
+	<a href="Logout.jsp">Log out</a>
 	<h2>Would you like to...</h2>
 	
 	
@@ -45,7 +46,7 @@ table, th, td {
 	<h2>See your alerts!</h2> 
 <% 
 	Class.forName("com.mysql.jdbc.Driver");
-	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "Swig2!6500");
+	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "root");
 	Statement st1 = con.createStatement();
 	Statement st2 = con.createStatement();
 	

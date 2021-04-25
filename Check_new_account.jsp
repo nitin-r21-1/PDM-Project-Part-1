@@ -15,7 +15,7 @@
     	String address = request.getParameter("address");
     
     	Class.forName("com.mysql.jdbc.Driver");
-    	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "Swig2!6500");
+    	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "root");
     	Statement st1 = con.createStatement();
     	Statement st2 = con.createStatement();
     	Statement st3 = con.createStatement();

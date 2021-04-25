@@ -26,11 +26,14 @@ table.center {
 	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "root");
 	Statement st1 = con.createStatement();
 	Statement st2 = con.createStatement();
-	ResultSet rs1,rs2, total;
+	Statement st3 = con.createStatement();
+	ResultSet rs1,rs2, total, booksales;
 	total = st2.executeQuery("select sum(price) from `Earnings`");
+	booksales = st3.executeQuery("select sum(price) from `Earnings` where type='Book'");
 	total.next();
 	String totalprice = total.getString("sum(price)");
-	
+	booksales.next();
+	String bookearnings = booksales.getString("sum(price)");
 	%>
 	<%--
 	
@@ -63,15 +66,9 @@ table.center {
     <table style="width:100%">
     <h3>Total Earnings</h3>
   <tr>
-	
-		<tr>
-			<td>
-		<tr>
+
 			<p>$<%= totalprice %> </p>
-		</tr>
-		</td>
-		</tr>
-    <td></td>
+
 
   </tr>
 </table>
@@ -93,9 +90,10 @@ table.center {
   <tr>
 	<%-- while (rs1.next() && rs2.next()) {--%>
 		<tr>
-			<td><%--= rs1.getString("book") --%></td>
-			<td><%--= rs1.getString("magazine") --%></td>
-			<td><%--= rs1.getString("reference") --%></td>
+			<h4>Book</h4>
+			<p> $<%= bookearnings %></p>
+			<h4>Magazine</h4>
+			<h4>Reference</h4>
 		</tr>
     <td></td>
 

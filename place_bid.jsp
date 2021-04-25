@@ -15,7 +15,7 @@
 	String auctionID = session.getAttribute("auction").toString();
 	String end_id = session.getAttribute("userid").toString();
 	Class.forName("com.mysql.jdbc.Driver");
-	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "root");
+	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "Swig2!6500");
 	Statement st1 = con.createStatement();
 	Statement st2 = con.createStatement();
 	Statement st3 = con.createStatement();
@@ -24,7 +24,6 @@
 	Statement st6 = con.createStatement();
 	Statement st7 = con.createStatement();
 	Statement st8 = con.createStatement();
-	
 	
 	ResultSet rs1, rs2, rs3, rs4, rs5, rs6;
 	
@@ -49,7 +48,7 @@
 		<p> The bid value you entered is not greater than the price posted. </p>
     	<a href=product_details.jsp> Try Again </a>
 <% }
-    else if (val <= curr+sellerIncrement)  {%>
+    else if (val <= curr + sellerIncrement)  {%>
 	<p> The bid value you entered is not greater than the price plus the seller increment posted. </p>
 	<a href=product_details.jsp> Try Again </a>
 <% }
@@ -91,9 +90,6 @@
 	<p> Increment $<%=increment %> </p>
 	<p> Placement <%=placement %> </p>
 	
-	<b> Thank You!</b>
-	<a href=view_auctions.jsp> Continue Shopping </a>
-	
 <% 
 	st4.executeUpdate("insert into `Bid_PlacesIn` (`bid_num`, `auctionID`, `end_id`, `value`, `upper_limit`, `increment`, `placement`) values (" + bid_num + ", " + auctionID + ", " + end_id + ", " + value + ", " + upper_limit + ", " + increment + ", '" + placement + "')" );
 	st4.executeUpdate("update `Auction_Held` set `current` = " + value + " where auctionID = " + auctionID);
@@ -107,78 +103,67 @@
 	rs5.next();
 	
 	
-	ArrayList<String[]> usersWithAutoBid = new ArrayList<String[]>();
+	List<String[]> usersWithAutoBid = new ArrayList<String[]>();
 	
 	while(rs5.next())
 	{
-		usersWithAutoBid.add(new String[]{rs5.getString("end_id"), rs5.getString("increment"), rs5.getString("upper_limit")});
+		String[] autoBid = {rs5.getString("end_id"), rs5.getString("increment"), rs5.getString("upper_limit")};
+		usersWithAutoBid.add(autoBid);
 	}
 	
 	
 	while(usersWithAutoBid.size() > 0) 
 	{
 		
-		for(int i = 0; i < usersWithAutoBid.size(); i++) 
+		for(int i = 0; i < usersWithAutoBid.size() - 1; i++) 
 		{
 			String currUserID = usersWithAutoBid.get(i)[0];
 			if(currUserID.equals(lastBidder)){
 				continue;
 			}
-			int incrementExist = Integer.parseInt(usersWithAutoBid.get(i)[1]);
+			
 			if(Integer.parseInt(usersWithAutoBid.get(i)[1])==0 || usersWithAutoBid.get(i)[1]==null || usersWithAutoBid.get(i)[1].isEmpty())
 			{
 				usersWithAutoBid.remove(i);
 			}
 			
-			
-			rs6 = st7.executeQuery("select max(bid_num) from `Bid_PlacesIn` where `end_id` = " + currUserID);
+			rs6 = st6.executeQuery("select bid_num from `Bid_PlacesIn` where `end_id` = " + currUserID + "and `auctionID` = " + auctionID);
 			rs6.next();
+			int bidnum = Integer.parseInt(rs6.getString("bid_num"));
 			
+			int currIncrement = Integer.parseInt(usersWithAutoBid.get(i)[1]);
+			int currLimit = Integer.parseInt(usersWithAutoBid.get(i)[2]);
 			
-			String newBidNumS = rs6.getString("max(bid_num)");
-			int newBidNum = Integer.parseInt(newBidNumS);
-			newBidNum++;
+			int newBid = currIncrement + currVal;
 			
-			
-			int increment1 = Integer.parseInt(usersWithAutoBid.get(i)[1]);
-			int maxLimit = Integer.parseInt(usersWithAutoBid.get(i)[2]);
-			
-			int newBid = increment1+currVal;
-			
-			if(newBid>maxLimit)
+			if(newBid > currLimit)
 			{
 				usersWithAutoBid.remove(i);
 			}
 			
 			else
 			{
-				st6.executeUpdate("insert into `Bid_PlacesIn` (`bid_num`, `auctionID`, `end_id`, `value`, `upper_limit`, `increment`, `placement`) values (" + newBidNum + ", " + auctionID + ", " + currUserID + ", " + newBid + ", " + maxLimit + ", " + increment1 + ", '" + placement + "')" );
+				st7.executeUpdate("update `Bid_PlacesIn` set `value` = " + newBid + " where bid_num = " + bidnum);
 				
-			
 				lastBidder = currUserID;
 				currVal = newBid;
-				
-				
-				
-	
 			}
-		
 			
 		}
 		
 		if(usersWithAutoBid.size() == 1) {
 			break;
 		}
-		
-	
 	}
 	st8.executeUpdate("update `Auction_Held` set `current` = " + currVal + " where auctionID = " + auctionID);
 	
-	
 	con.close();
-	
-	
-	
+
 } %>
+
+	<b> Thank You!</b>
+	<a href=view_auctions.jsp> Continue Shopping </a>
+
+	
 </body>
 </html>

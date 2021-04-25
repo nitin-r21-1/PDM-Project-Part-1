@@ -1,3 +1,4 @@
+#drop database cs336project;
 create database cs336project;
 use cs336project;
 
@@ -115,14 +116,27 @@ create table `Earnings`(`end_id` int,
 #show tables;
 insert into `User` (`id`, `username`, `password`) values (1, 'Admin', 'password');
 insert into `User` (`id`, `username`, `password`) values (2, 'Rep', 'repwd');
-insert into `User` (`id`, `username`, `password`) values (3, 'End', 'endpwd');
+insert into `User` (`id`, `username`, `password`) values (3, 'End', 'pwd'), (4, 'End2', 'pwd');
 insert into `Admin` (`id`) values (1);
 insert into `Representative` (`id`) values (2);
-insert into `End_User` (`id`) values (3);
-insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`, `textType`) values (1, 3, 'New', 'Riordan', 'Percy Jackson', 'Hyperion', 2008, 'Greek Mythology for kids', 'Book');
-insert into `Book` (`textID`, `isbn`, `genre`, `cover`) values (1, '2000', 'Fiction', 'Paperback');
-insert into `Auction_Held` (`auctionID`, `textID`, `price`, `minimum`, `increment`, `current`, `closing`, `closed`) values (1, 1, 10, 15, 1, 0, '2021-4-23 23:59:59', false); 
+insert into `End_User` (`id`) values (3), (4);
+
+insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`, `textType`) values (1, 3, 'Used', 'Author', 'Default', 'Publisher', 2021, 'DO NOT DELETE', 'Reference');
+insert into `Reference` (`textID`, `isbn`, `type`) values (1, '2000', 'Dictionary');
+insert into `Auction_Held` (`auctionID`, `textID`, `price`, `minimum`, `increment`, `current`, `closing`, `closed`) values (1, 1, 10, 15, 1, 0, '2021-4-23 23:59:59', true); 
+
+#Test Data Below
+
+insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`, `textType`) values (2, 3, 'New', 'Riordan', 'Percy Jackson', 'Hyperion', 2008, 'Greek Mythology for kids', 'Book');
+insert into `Book` (`textID`, `isbn`, `genre`, `cover`) values (2, '2000', 'Fiction', 'Paperback');
+insert into `Auction_Held` (`auctionID`, `textID`, `price`, `minimum`, `increment`, `current`, `closing`, `closed`) values (2, 2, 10, 15, 1, 0, '2021-4-26 23:59:59', false); 
+
+insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`, `textType`) values (3, 3, 'Mint', 'Washington', 'Game Informer', 'Gamestop', 2005, 'Gaming News', 'Magazine');
+insert into `Magazine` (`textID`, `issn`, `volume`, `issue`) values (3, '2000', 14 , 11);
+insert into `Auction_Held` (`auctionID`, `textID`, `price`, `minimum`, `increment`, `current`, `closing`, `closed`) values (3, 3, 20, 50, 5, 0, '2021-4-27 23:59:59', false); 
+
+insert into `Text_Sells` (`textID`, `end_id`, `condition`, `author`, `title`, `publisher`, `copyright`, `description`, `textType`) values (4, 3, 'Used', 'U.S.A', 'English Dictionary', 'Oxford', 1998, 'Antique', 'Reference');
+insert into `Reference` (`textID`, `isbn`, `type`) values (4, '2000', 'Dictionary');
+insert into `Auction_Held` (`auctionID`, `textID`, `price`, `minimum`, `increment`, `current`, `closing`, `closed`) values (4, 4, 64, 300, 30, 0, '2021-4-25 23:59:59', false); 
 
 select * from `User`;
-#select * from `Admin`;
-#select * from `Representative`;

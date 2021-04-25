@@ -106,14 +106,6 @@
 	rs5 = st5.executeQuery("select *  from `Bid_PlacesIn` where `auctionID` = " + auctionID );
 	rs5.next();
 	
-	//REMOVE WHEN DONE____________
-	
-	%>="reached here"
-	
-	
-	
-	<% 
-	//___________________________
 	
 	ArrayList<String[]> usersWithAutoBid = new ArrayList<String[]>();
 	

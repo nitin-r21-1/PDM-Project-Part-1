@@ -49,7 +49,7 @@
 		<p> The bid value you entered is not greater than the price posted. </p>
     	<a href=product_details.jsp> Try Again </a>
 <% }
-    else if (val <= price+curr)  {%>
+    else if (val <= curr+sellerIncrement)  {%>
 	<p> The bid value you entered is not greater than the price plus the seller increment posted. </p>
 	<a href=product_details.jsp> Try Again </a>
 <% }

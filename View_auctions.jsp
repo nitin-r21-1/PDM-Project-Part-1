@@ -24,7 +24,7 @@ table.center {
 
 <%
 	Class.forName("com.mysql.jdbc.Driver");
-	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "root");
+	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "Swig2!6500");
 	Statement st1 = con.createStatement();
 	Statement st2 = con.createStatement();
 	Statement st3 = con.createStatement();
@@ -39,7 +39,7 @@ table.center {
 	Statement st12 = con.createStatement();
 	Statement st13 = con.createStatement();
 	
-	ResultSet rs1,rs2, rs3, rs4, rs5, rs6, rs7, rs8, rs9, rs10;
+	ResultSet rs1,rs2, rs3, rs5, rs6, rs10, rs11, rs12, rs13;
 	
 	rs3 = st3.executeQuery("select * from `Auction_Held` where `closed` = False");
 	
@@ -60,19 +60,19 @@ table.center {
 		{
 			st4.executeUpdate("update `Auction_Held` set `closed` = true where auctionID = " + auctionID);
 			
-			rs9 = st12.executeQuery("select end_id from `Text_Sells` where `textID` = " + auctionID);
-			rs9.next();
-			String sellerID = rs9.getString("end_id");
+			rs12 = st12.executeQuery("select end_id from `Text_Sells` where `textID` = " + auctionID);
+			rs12.next();
+			String sellerID = rs12.getString("end_id");
 			
-			rs7 = st9.executeQuery("select `title`, `textType` from `Text_Sells` where `textID` = " + auctionID);
-				rs7.next();
-				String textType = rs7.getString("textType");
-				String title = rs7.getString("title");
+			rs10 = st10.executeQuery("select `title`, `textType` from `Text_Sells` where `textID` = " + auctionID);
+				rs10.next();
+				String textType = rs10.getString("textType");
+				String title = rs10.getString("title");
 		
 			//set winner here? auction is closed, find max bid/current if current is max
-			rs10 = st13.executeQuery("select count(*) from `Bid_PlacesIn` where `auctionID` = " + auctionID);
-			rs10.next();
-			int bidCount = Integer.parseInt(rs10.getString("count(*)"));
+			rs13 = st13.executeQuery("select count(*) from `Bid_PlacesIn` where `auctionID` = " + auctionID);
+			rs13.next();
+			int bidCount = Integer.parseInt(rs13.getString("count(*)"));
 			
 			rs5 = st5.executeQuery("select `end_id`, max(value) from `Bid_PlacesIn` where `auctionID` = " + auctionID );
 			rs6 = st6.executeQuery("select `minimum` from `Auction_Held` where `auctionID` = " + auctionID );
@@ -80,15 +80,15 @@ table.center {
 				int maxValue = Integer.parseInt(rs5.getString("max(value)"));
 				int min = Integer.parseInt(rs6.getString("minimum"));
 				String endID = rs5.getString("end_id");
-				rs8 = st11.executeQuery("select `username` from `User` where id = " + endID);
-				rs8.next();
-				String username = rs8.getString("username");
+				rs11 = st11.executeQuery("select `username` from `User` where id = " + endID);
+				rs11.next();
+				String username = rs11.getString("username");
 				if(maxValue>min)
 				{
 					st7.executeUpdate("update `Auction_Held` set winner = " + endID + " where `auctionID` = " + auctionID);
 					st8.executeUpdate("insert into `Earnings` (`end_id`, `textID`, `auctionID`, `type`, `price`) values (" + sellerID + ", " + auctionID + ", " + auctionID + ", '" + textType + "', " + maxValue + ")" );
 					String send_alert = "Congrats " +username + " you won the auction for " + title + " with a bid of " + maxValue;
-					st10.executeUpdate("insert into `Sends_Alert` (`end_id`, `auctionID`, `message`) values (" + endID + ", " + auctionID + ", '" + send_alert + "')" );
+					st9.executeUpdate("insert into `Sends_Alert` (`end_id`, `auctionID`, `message`) values (" + endID + ", " + auctionID + ", '" + send_alert + "')" );
 				}
 			}
 			else{
@@ -97,8 +97,8 @@ table.center {
 			}
 		}
 	}
-	rs1 = st1.executeQuery("select * from `Text_Sells`");
 	rs2 = st2.executeQuery("select * from `Auction_Held` where `closed` = False");
+	
 %>
 
 <body>
@@ -118,7 +118,11 @@ table.center {
 			<th>Closing</th>
 		</tr>
 		
-		<% while (rs1.next() && rs2.next()) {%>
+		<% while (rs2.next()) {
+			String currText = rs2.getString("auctionID");
+			rs1 = st1.executeQuery("select * from `Text_Sells` where `textID` = " + currText);
+			rs1.next();
+		%>
 		<tr>
 			<td><%= rs1.getString("textType") %></td>
 			<td> <a href=product_details.jsp?id=<%= rs1.getString("textID") %>> <%= rs1.getString("title") %> </a></td>

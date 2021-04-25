@@ -76,10 +76,11 @@ create table `History` (`auctionID` int,
 
                             
 create table `Sends_Alert`(`end_id` int,
-						`textID` int,
-                        primary key(`end_id`, `textID`),
+						`auctionID` int,
+                        `message` varchar(280),
+                        primary key(`end_id`, `auctionID`),
                         foreign key (`end_id`) references `End_User` (`id`),
-                        foreign key (`textID`) references `Text_Sells` (`textID`));
+                        foreign key (`auctionID`) references `Auction_held` (`auctionID`));
                         
 create table `Book` (`textID` int,
 					`isbn` varchar(13),

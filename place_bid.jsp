@@ -20,7 +20,11 @@
 	Statement st2 = con.createStatement();
 	Statement st3 = con.createStatement();
 	Statement st4 = con.createStatement();
-	ResultSet rs1, rs2, rs3;
+	Statement st5 = con.createStatement();
+	Statement st6 = con.createStatement();
+	
+	
+	ResultSet rs1, rs2, rs3, rs4, rs5, rs6;
 	
 	rs1 = st1.executeQuery("select `auctionID`, `current`, `price` from `Auction_Held` where `auctionID` = " + auctionID );
 	rs1.next();
@@ -81,6 +85,87 @@
 <% 
 	st4.executeUpdate("insert into `Bid_PlacesIn` (`bid_num`, `auctionID`, `end_id`, `value`, `upper_limit`, `increment`, `placement`) values (" + bid_num + ", " + auctionID + ", " + end_id + ", " + value + ", " + upper_limit + ", " + increment + ", '" + placement + "')" );
 	st4.executeUpdate("update `Auction_Held` set `current` = " + value + " where auctionID = " + auctionID);
+	
+	String lastBidder = end_id;
+	int lastBidNum = bid_num;
+	int currVal = val;
+	
+	rs5 = st5.executeQuery("select *  from `Bid_PlacesIn` where `auctionID` = " + auctionID );
+	rs5.next();
+	
+	ArrayList<String[]> usersWithAutoBid = new ArrayList<String[]>();
+	
+	while(rs5.next())
+	{
+		usersWithAutoBid.add(new String[]{rs5.getString("end_id"), rs5.getString("increment"), rs5.getString("upper_limit")});
+	}
+	
+	
+	while(usersWithAutoBid.size() > 0) 
+	{
+		
+		for(int i = 0; i < usersWithAutoBid.size(); i++) 
+		{
+			String currUserID = usersWithAutoBid.get(i)[0];
+			if(currUserID.equals(lastBidder)){
+				continue;
+			}
+			
+			
+			int newBidNum = lastBidNum+1;
+			int increment1 = Integer.parseInt(usersWithAutoBid.get(i)[1]);
+			int maxLimit = Integer.parseInt(usersWithAutoBid.get(i)[2]);
+			
+			int newBid = increment1+currVal;
+			
+			if(newBid>maxLimit)
+			{
+				usersWithAutoBid.remove(i);
+			}
+			
+			else
+			{
+				st6.executeUpdate("insert into `Bid_PlacesIn` (`bid_num`, `auctionID`, `end_id`, `value`, `upper_limit`, `increment`, `placement`) values (" + newBidNum + ", " + auctionID + ", " + currUserID + ", " + newBid + ", " + maxLimit + ", " + increment1 + ", '" + placement + "')" );
+				
+				
+				lastBidder = currUserID;
+				currVal = newBid;
+				
+				
+			}
+		
+			
+			
+			
+		}
+		
+		if(usersWithAutoBid.size() == 1) {
+			break;
+		}
+		
+		
+		
+	}
+	
+	st6.executeUpdate("update `Auction_Held` set `current` = " + currVal + " where auctionID = " + auctionID);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 } %>
 </body>
 </html>

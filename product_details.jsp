@@ -78,6 +78,7 @@ table, th, td {
 <% rs3 = st3.executeQuery("select * from `Auction_Held` where `auctionID` = " + auctionID); rs3.next(); %>
 <p> Initial Price: $ <%= rs3.getString("price") %> </p>
 <p> Current Bid: $ <%= rs3.getString("current") %></p>
+<p> Minimum Increment: $ <%= rs3.getString("increment") %></p>
 <p> Closing: <%= rs3.getString("closing") %> </p> <br/>
 
 <form action= "place_bid.jsp" method = "Post"> 

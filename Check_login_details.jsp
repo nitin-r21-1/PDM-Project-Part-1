@@ -15,42 +15,39 @@
             	
                 } 
    --%>
-<%
-    String user = request.getParameter("username");   
-    String pwd = request.getParameter("password");
-    Class.forName("com.mysql.jdbc.Driver");
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "root");
-    Statement st = con.createStatement();
-    Statement st2 = con.createStatement();
-    Statement st3 = con.createStatement();
-    ResultSet rs;
-    ResultSet rs1, rs2;
-    rs = st.executeQuery("select * from `User` where `username`='" + user + "' and `password`='" + pwd + "'");
+   <%
+   String user = request.getParameter("username");   
+   String pwd = request.getParameter("password");
+   Class.forName("com.mysql.jdbc.Driver");
+   Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "root");
+   Statement st1 = con.createStatement();
+   Statement st2 = con.createStatement();
+   Statement st3 = con.createStatement();
+   Statement st4 = con.createStatement();
    
-    if (rs.next()) {
-        session.setAttribute("user", user); // the username will be stored in the session
-        ResultSet rs0;
-        rs0 = st.executeQuery("select id from `User` where `username`='" + user + "'");
-        String userIds = "";
-        if (rs0.next()) {
-        	userIds = rs0.getString(1);
-        	int userId = Integer.parseInt(String.valueOf(userIds.charAt(0)));
-        	session.setAttribute("userid", userId);
-        	rs1 = st2.executeQuery("select * from `Admin` where `id`='" + userId + "'"); 
-        	rs2 = st3.executeQuery("select * from `Representative` where `id`='" + userId + "'");
-        	if (rs1.next()) {
-            	response.sendRedirect("admin.jsp");
-            	
-                } 
-        	else if(rs2.next()) {response.sendRedirect("customer_rep.jsp");}
-        	else{response.sendRedirect("Default_user.jsp");}
-            out.println("welcome " + user);
-            out.println("<a href='Logout.jsp'>Log out</a>");
-            
-        }
-        
-    	
-    } else {
-        out.println("Invalid password <a href='Login.jsp'>try again</a>");
-    }
+   
+   ResultSet rs1, rs2, rs3, rs4;
+   rs1 = st1.executeQuery("select * from `User` where `username`='" + user + "' and `password`='" + pwd + "'");
+   
+   if (rs1.next()) {
+       session.setAttribute("user", user); // the username will be stored in the session
+       ResultSet rs0;
+       rs2 = st2.executeQuery("select id from `User` where `username`='" + user + "'");
+       if (rs2.next()) {
+           int userId = Integer.parseInt(rs2.getString("id"));
+           session.setAttribute("userid", userId);
+           rs3 = st3.executeQuery("select id from `Admin` where `id` = " + userId);
+           rs4 = st4.executeQuery("select id from `Representative` where `id` = " + userId);
+           if (rs3.next()){
+               response.sendRedirect("admin.jsp");
+           }
+           else if (rs4.next()){
+               response.sendRedirect("customer_rep.jsp");
+           }
+           else
+               response.sendRedirect("Default_user.jsp");
+       }
+   } else {
+       out.println("Invalid password <a href='Login.jsp'>try again</a>");
+   }
 %>

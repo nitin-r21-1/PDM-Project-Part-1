@@ -20,6 +20,7 @@
     	Statement st2 = con.createStatement();
     	Statement st3 = con.createStatement();
     	Statement st4 = con.createStatement();
+    	Statement st5 = con.createStatement();
     
     	ResultSet rs1, rs2;
     	rs1 = st1.executeQuery("select * from `User` where `username`='" + user +"'");
@@ -35,6 +36,10 @@
         	st4.executeUpdate("insert into `End_User` (`id`) values (" + count + ")");
     		session.setAttribute("user", user); // the username will be stored in the session
     		session.setAttribute("userid", count);
+    		
+    		String newMessage = "Thank you for creating an account with Bid-a-Text!";
+    		st5.executeUpdate("insert into `Sends_Alert` (`end_id`, auctionID, `message`) values (" + count + ", 1, '" + newMessage + "')");
+    		
         	response.sendRedirect("Default_user.jsp");
     	}
     }

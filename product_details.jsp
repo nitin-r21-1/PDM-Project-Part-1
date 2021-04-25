@@ -47,6 +47,7 @@ table, th, td {
 	}
 	rs2.next();
 %>
+<a href="Logout.jsp">Log out</a>
 <h1> <%= rs1.getString("title") %> </h1>
 <h2> <%= rs1.getString("author") %> </h2> <hr/> 
 

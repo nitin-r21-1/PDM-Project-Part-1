@@ -25,9 +25,10 @@
 	Statement st7 = con.createStatement();
 	Statement st8 = con.createStatement();
 	
+	
 	ResultSet rs1, rs2, rs3, rs4, rs5, rs6;
 	
-	rs1 = st1.executeQuery("select `auctionID`, `current`, `price` from `Auction_Held` where `auctionID` = " + auctionID );
+	rs1 = st1.executeQuery("select `auctionID`, `current`, `price`, `increment` from `Auction_Held` where `auctionID` = " + auctionID );
 	rs1.next();
 	String currentBid = rs1.getString("current");
 	int curr = Integer.parseInt(currentBid);
@@ -35,6 +36,10 @@
 	int price = Integer.parseInt(initPrice);
 	String value = request.getParameter("value");
 	int val = Integer.parseInt(value);
+	
+	String sellerIncrementS = rs1.getString("increment");
+	int sellerIncrement = Integer.parseInt(sellerIncrementS);
+	
     
     if (val <= curr){
 %>
@@ -43,7 +48,13 @@
 <% } else if (val <= price)  {%>
 		<p> The bid value you entered is not greater than the price posted. </p>
     	<a href=product_details.jsp> Try Again </a>
-<% } else {
+<% }
+    else if (val <= curr+sellerIncrement)  {%>
+	<p> The bid value you entered is not greater than the price plus the seller increment posted. </p>
+	<a href=product_details.jsp> Try Again </a>
+<% }
+
+	else {
 	rs2 = st2.executeQuery("select count(*) from `Bid_PlacesIn`");
 	rs2.next();
 	String countS = rs2.getString("count(*)");
@@ -95,12 +106,14 @@
 	rs5 = st5.executeQuery("select *  from `Bid_PlacesIn` where `auctionID` = " + auctionID );
 	rs5.next();
 	
+	//REMOVE WHEN DONE____________
 	
 	%>="reached here"
 	
 	
 	
 	<% 
+	//___________________________
 	
 	ArrayList<String[]> usersWithAutoBid = new ArrayList<String[]>();
 	
@@ -153,6 +166,8 @@
 				lastBidder = currUserID;
 				currVal = newBid;
 				
+				st8.executeUpdate("update `Auction_Held` set `current` = " + currVal + " where auctionID = " + auctionID);
+				
 	
 			}
 		
@@ -166,7 +181,7 @@
 	
 	}
 	
-	st8.executeUpdate("update `Auction_Held` set `current` = " + currVal + " where auctionID = " + auctionID);
+	
 	
 	
 	

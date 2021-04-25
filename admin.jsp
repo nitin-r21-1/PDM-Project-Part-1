@@ -27,19 +27,15 @@ table.center {
 	Statement st1 = con.createStatement();
 	Statement st2 = con.createStatement();
 	ResultSet rs1,rs2;
-	bestbuyer = st1.executeQuery("SELECT END_ID FROM HISTORY H, AUCTION A,Where H.ROLE = BUYER,H.AUCTIONID = A.AUCTIONID");
+	bestbuyer = st1.executeQuery("SELECT end_user from history WHERE role=buyer AND sum(price)=(select max(price) from history group by end_user)");
 	total = st2.executeQuery("SELECT sum(price) FROM earnings");
-	bestseller = st3.executeQuery("");
-	per_typebook = st4.executeQuery("SELECT sum(price) FROM book");
-	per_typemagazine = st5.executeQuery("SELECT sum(price) FROM magazine");
-	per_typereference = st2.executeQuery("SELECT sum(price) FROM reference");
-	per_end_user = st2.executeQuery("SELECT sum(price) FROM earnings GROUP BY end_user");
+	bestseller = st3.executeQuery(" ");
+	per_typebook = st2.executeQuery("SELECT sum(price) FROM Auction_held a, text_sells t, book b WHERE book b");
+	per_typemagazine = st2.executeQuery("SELECT sum(price) FROM Auction_held a, text_sells t, magazine m WHERE magazine m");
+	per_typereference = st2.executeQuery("SELECT sum(price) FROM Auction_held a, text_sells t, reference r WHERE reference");
+	per_end_user = st2.executeQuery("SELECT end_id, sum(price) FROM earnings GROUP BY end_user");
 	createrep_1 = st2.executeQuery("INSERT actid, first_name, last_name, email, address, username, password INTO ACCOUNT");
 	createrep_2 = st2.executeQuery("INSERT rep_id, actid INTO Representative");
-	rs10 = st2.executeQuery("");
-	rs11 = st2.executeQuery("");
-	rs12 = st2.executeQuery("");
-
 
 <body>
 	<h1>Welcome Admin!</h1>
@@ -112,8 +108,6 @@ table.center {
 	<% while (rs1.next() && rs2.next()) {%>
 		<tr>
 			<td><%= rs1.getString("book") %></td>
-			<td><%= rs1.getString("magazine") %></td>
-			<td><%= rs1.getString("reference") %></td>
 		</tr>
     <td></td>
 

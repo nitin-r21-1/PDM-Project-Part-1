@@ -27,11 +27,11 @@ table.center {
 	Statement st1 = con.createStatement();
 	Statement st2 = con.createStatement();
 	ResultSet rs1,rs2;
-	answer_questions = st1.executeQuery("INSERT ANSWER INTO QANDA_ASKSANSWERS");
-	modify_accounts = st2.executeQuery('INSERT ACCDID INTO ACCOUNTS');
+	answer_questions = st1.executeQuery("INSERT ANSWER, rep_id INTO QANDA_ASKSANSWERS");
+	modify_accounts = st2.executeQuery('INSERT ACCID INTO ACCOUNTS');
 	delete_account = st3.executeQuery('DELETE ACCID FROM ACCOUNTS');
-	modify_auction = st2.executeQuery('INSERT ACCDID INTO ACCOUNTS');
-	delete_auction = st3.executeQuery('DELETE ACCID FROM ACCOUNTS');
+	modify_auction = st2.executeQuery('INSERT Auction_ID INTO ACCOUNT');
+	delete_auction = st3.executeQuery('DELETE AUction_ID FROM Auction');
 %>
 
 <body>

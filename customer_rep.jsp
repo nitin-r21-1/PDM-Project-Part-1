@@ -21,7 +21,7 @@ table.center {
 </style>
 </head>
 
-<%
+<%--
 	Class.forName("com.mysql.jdbc.Driver");
 	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "root");
 	Statement st1 = con.createStatement();
@@ -32,36 +32,51 @@ table.center {
 	delete_account = st3.executeQuery('DELETE ACCID FROM ACCOUNTS');
 	modify_auction = st2.executeQuery('INSERT Auction_ID INTO ACCOUNT');
 	delete_auction = st3.executeQuery('DELETE AUction_ID FROM Auction');
-%>
+--%>
 
 <body>
 	<h1>Welcome Customer Rep!</h1>
 	<br>
-	
-    <form action="Check_login_details.jsp" method="POST">
+	<form action= "view_questions.jsp" method = "GET">
+		<input type="submit" value = "View Questions">
+	</form>
+    <form action="post_question.jsp" method="POST">
 		QuestionID: <input type="text" name="id"/> <br/>
 		Response: <input type="text" name="response"/> <br/>
 		
 		<input type="submit" value="Answer Question"/>
 	 </form>
+	 
 	 <form action="/action_page.php">
 		<label for="fname">Delete Account (Users):</label><br>
-		<input type="text" id="fname" name="fname" value="John"><br>
+		<input type="text" id="fname" name="fname" value="type account id here"><br>
 		<input type="submit" value="Submit">
 	 </form> 
-	 <form action="/action_page.php">
+		<form action="Create_account.jsp" method="POST">
 		<label for="fname">Modify Account (Users):</label><br>
-		<input type="text" id="fname" name="fname" value="John"><br>
-		<input type="submit" value="Submit">
-	 </form>
+		<input type="text" id="fname" name="fname" value="type account id here"><br>
+       First Name: <input type = "text" name= "first_name"/> <br/>
+       Last Name: <input type = "text" name= "last_name"/> <br/>
+       Email: <input type = "text" name= "email"/> <br/>
+       Address: <input type = "text" name= "address"/> <br/>		
+       Username: <input type="text" name="username"/> <br/>
+       Password:<input type="password" name="password"/> <br/>
+	   <input type="submit" value="Modify Account"/>
+	</form>
+	<form action= "view_bids.jsp" method = "GET">
+		<input type="submit" value = "View Bids">
+	</form>
 	 <form action="/action_page.php">
-		<label for="fname">Remove Bid:</label><br>
-		<input type="text" id="fname" name="fname" value="John"><br>
+		<label for="fname">Remove Bid (bid_num):</label><br>
+		<input type="text" id="fname" name="fname" value=""><br>
 		<input type="submit" value="Submit">
 	 </form> 
+	 <form action= "view_questions.jsp" method = "GET">
+		<input type="submit" value = "View Auctions">
+	</form>
 	 <form action="/action_page.php">
-		<label for="fname">Remove Auction:</label><br>
-		<input type="text" id="fname" name="fname" value="John"><br>
+		<label for="fname">Remove Auction (auction_id):</label><br>
+		<input type="text" id="fname" name="fname" value=""><br>
 		<input type="submit" value="Submit">
 	 </form> 
   </tr>

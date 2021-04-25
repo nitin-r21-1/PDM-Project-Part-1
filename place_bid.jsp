@@ -106,14 +106,6 @@
 	rs5 = st5.executeQuery("select *  from `Bid_PlacesIn` where `auctionID` = " + auctionID );
 	rs5.next();
 	
-	//REMOVE WHEN DONE____________
-	
-	%>="reached here"
-	
-	
-	
-	<% 
-	//___________________________
 	
 	ArrayList<String[]> usersWithAutoBid = new ArrayList<String[]>();
 	
@@ -162,11 +154,11 @@
 			{
 				st6.executeUpdate("insert into `Bid_PlacesIn` (`bid_num`, `auctionID`, `end_id`, `value`, `upper_limit`, `increment`, `placement`) values (" + newBidNum + ", " + auctionID + ", " + currUserID + ", " + newBid + ", " + maxLimit + ", " + increment1 + ", '" + placement + "')" );
 				
-				
+			
 				lastBidder = currUserID;
 				currVal = newBid;
 				
-				st8.executeUpdate("update `Auction_Held` set `current` = " + currVal + " where auctionID = " + auctionID);
+				
 				
 	
 			}
@@ -180,9 +172,10 @@
 		
 	
 	}
+	st8.executeUpdate("update `Auction_Held` set `current` = " + currVal + " where auctionID = " + auctionID);
 	
 	
-	
+	con.close();
 	
 	
 	

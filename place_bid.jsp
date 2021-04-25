@@ -24,6 +24,7 @@
 	Statement st6 = con.createStatement();
 	Statement st7 = con.createStatement();
 	Statement st8 = con.createStatement();
+	Statement st9 = con.createStatement();
 	
 	ResultSet rs1, rs2, rs3, rs4, rs5, rs6;
 	
@@ -33,6 +34,7 @@
 	int curr = Integer.parseInt(currentBid);
 	String initPrice = rs1.getString("price");
 	int price = Integer.parseInt(initPrice);
+	
 	String value = request.getParameter("value");
 	int val = Integer.parseInt(value);
 	
@@ -74,7 +76,11 @@
 	}
 	
 	String increment = request.getParameter("increment");
+	if (increment == null || increment.equals(""))
+		increment = "0";
     String upper_limit = request.getParameter("upper_limit");
+    if (upper_limit == null || upper_limit.equals(""))
+    	upper_limit = "0";
 	Date date = new Date();
 	SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	String placement = formatDate.format(date);
@@ -91,13 +97,18 @@
 	<p> Placement <%=placement %> </p>
 	
 <% 
-	st4.executeUpdate("insert into `Bid_PlacesIn` (`bid_num`, `auctionID`, `end_id`, `value`, `upper_limit`, `increment`, `placement`) values (" + bid_num + ", " + auctionID + ", " + end_id + ", " + value + ", " + upper_limit + ", " + increment + ", '" + placement + "')" );
+	rs4 = st9.executeQuery("select `bid_num` from `Bid_PlacesIn` where `end_id` = " + end_id + " and `auctionID` = " + auctionID);
+	if (rs4.next()){
+		bid_num = Integer.parseInt(rs4.getString("bid_num"));
+		st4.executeUpdate("update `Bid_PlacesIn` set `value` = "+ value + ", `upper_limit` = " + upper_limit + ", `increment` = " + increment + ", `placement` = '" + placement + "' where `bid_num` = " + bid_num);
+	}
+	else{
+		st4.executeUpdate("insert into `Bid_PlacesIn` (`bid_num`, `auctionID`, `end_id`, `value`, `upper_limit`, `increment`, `placement`) values (" + bid_num + ", " + auctionID + ", " + end_id + ", " + value + ", " + upper_limit + ", " + increment + ", '" + placement + "')" );
+	}
 	st4.executeUpdate("update `Auction_Held` set `current` = " + value + " where auctionID = " + auctionID);
 	
 	String lastBidder = end_id;
-	int lastBidNum = bid_num;
 	int currVal = val;
-	
 	
 	rs5 = st5.executeQuery("select *  from `Bid_PlacesIn` where `auctionID` = " + auctionID );
 	rs5.next();
@@ -108,6 +119,10 @@
 	while(rs5.next())
 	{
 		String[] autoBid = {rs5.getString("end_id"), rs5.getString("increment"), rs5.getString("upper_limit")};
+		if(Integer.parseInt(autoBid[1])==0 || autoBid[1]==null || autoBid[1].isEmpty() || Integer.parseInt(autoBid[2])==0 || autoBid[2]==null || autoBid[2].isEmpty())
+		{
+			continue;
+		}
 		usersWithAutoBid.add(autoBid);
 	}
 	
@@ -115,19 +130,14 @@
 	while(usersWithAutoBid.size() > 0) 
 	{
 		
-		for(int i = 0; i < usersWithAutoBid.size() - 1; i++) 
+		for(int i = 0; i < usersWithAutoBid.size(); i++) 
 		{
 			String currUserID = usersWithAutoBid.get(i)[0];
 			if(currUserID.equals(lastBidder)){
 				continue;
 			}
 			
-			if(Integer.parseInt(usersWithAutoBid.get(i)[1])==0 || usersWithAutoBid.get(i)[1]==null || usersWithAutoBid.get(i)[1].isEmpty())
-			{
-				usersWithAutoBid.remove(i);
-			}
-			
-			rs6 = st6.executeQuery("select bid_num from `Bid_PlacesIn` where `end_id` = " + currUserID + "and `auctionID` = " + auctionID);
+			rs6 = st6.executeQuery("select bid_num from `Bid_PlacesIn` where `end_id` = " + currUserID + " and `auctionID` = " + auctionID);
 			rs6.next();
 			int bidnum = Integer.parseInt(rs6.getString("bid_num"));
 			

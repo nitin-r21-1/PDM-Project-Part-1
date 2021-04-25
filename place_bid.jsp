@@ -91,8 +91,16 @@
 	int lastBidNum = bid_num;
 	int currVal = val;
 	
+	
 	rs5 = st5.executeQuery("select *  from `Bid_PlacesIn` where `auctionID` = " + auctionID );
 	rs5.next();
+	
+	
+	%>="reached here"
+	
+	
+	
+	<% 
 	
 	ArrayList<String[]> usersWithAutoBid = new ArrayList<String[]>();
 	
@@ -111,6 +119,12 @@
 			if(currUserID.equals(lastBidder)){
 				continue;
 			}
+			int incrementExist = Integer.parseInt(usersWithAutoBid.get(i)[1]);
+			if(Integer.parseInt(usersWithAutoBid.get(i)[1])==0 || usersWithAutoBid.get(i)[1]==null || usersWithAutoBid.get(i)[1].isEmpty())
+			{
+				usersWithAutoBid.remove(i);
+			}
+			
 			
 			rs6 = st7.executeQuery("select max(bid_num) from `Bid_PlacesIn` where `end_id` = " + currUserID);
 			rs6.next();

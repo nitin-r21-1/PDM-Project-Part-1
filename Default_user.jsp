@@ -42,6 +42,12 @@ table, th, td {
 	<form action= "view_auctions.jsp" method = "GET">
 		<input type="submit" value = "View Auctions">
 	</form>
+
+	<br>
+	
+	<form action= "search_auctions.jsp" method = "GET">
+		<input type="submit" value = "Search Auctions">
+	</form>
 	
 	<h2>See your alerts!</h2> 
 <% 

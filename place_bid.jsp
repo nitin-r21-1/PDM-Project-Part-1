@@ -22,7 +22,7 @@
 	Statement st4 = con.createStatement();
 	Statement st5 = con.createStatement();
 	Statement st6 = con.createStatement();
-	
+	Statement st7 = con.createStatement();
 	
 	ResultSet rs1, rs2, rs3, rs4, rs5, rs6;
 	
@@ -111,8 +111,15 @@
 				continue;
 			}
 			
+			rs6 = st7.executeQuery("select max(bid_num) from `Bid_PlacesIn`");
+			rs6.next();
 			
-			int newBidNum = lastBidNum+1;
+			
+			String newBidNumS = rs6.getString("max(bid_num)");
+			int newBidNum = Integer.parseInt(newBidNumS);
+			newBidNum++;
+			
+			
 			int increment1 = Integer.parseInt(usersWithAutoBid.get(i)[1]);
 			int maxLimit = Integer.parseInt(usersWithAutoBid.get(i)[2]);
 			
@@ -131,11 +138,9 @@
 				lastBidder = currUserID;
 				currVal = newBid;
 				
-				
+	
 			}
 		
-			
-			
 			
 		}
 		
@@ -143,25 +148,10 @@
 			break;
 		}
 		
-		
-		
+	
 	}
 	
 	st6.executeUpdate("update `Auction_Held` set `current` = " + currVal + " where auctionID = " + auctionID);
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

@@ -28,7 +28,7 @@ table.center {
 	Statement st1 = con.createStatement();
 	Statement st2 = con.createStatement();
 	ResultSet rs1,rs2;
-	rs1 = st1.executeQuery(select * from `QandA_AsksAnswers`););
+	rs1 = st1.executeQuery("select * from `QandA_AsksAnswers`");
 %>
 
 <body>

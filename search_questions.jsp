@@ -29,7 +29,7 @@ table.center {
 	Statement st1 = con.createStatement();
 	Statement st2 = con.createStatement();
 	ResultSet rs1,rs2;
-	rs1 = st2.executeQuery("SELECT Question FROM `QandA_AsksAnswers` WHERE Question LIKE '%'" + keyword + "'%'");
+	rs1 = st2.executeQuery("SELECT * FROM `QandA_AsksAnswers` WHERE Question LIKE '%"+ keyword +"%'");
 %>
 
 <body>
@@ -45,7 +45,7 @@ table.center {
 		
 		<% while (rs1.next()) {%>
 		<tr>
-			<td><%= rs1.getString("QID") %></td>
+			<td><%= rs1.getString("Qid") %></td>
 			<td><%= rs1.getString("Question") %></td>
 			<td><%= rs1.getString("Answer") %></td>
 		</tr>

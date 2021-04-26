@@ -33,6 +33,7 @@ table.center {
 	Statement st7 = con.createStatement();
 	Statement st8 = con.createStatement();
 	Statement st9 = con.createStatement();
+	Statement st10 = con.createStatement();
 	ResultSet total, booksales, magsales, refsales, allsales, mostcommon, salesbyitem, bestbuyer;
 	total = st2.executeQuery("select sum(price) from `Earnings`");
 	booksales = st3.executeQuery("select sum(price) from `Earnings` where type='Book'");
@@ -155,15 +156,13 @@ table.center {
 </table>
 	<form action="Check_new_account.jsp" method="POST">
 		<h3><label for="fname">Create Account (Customer Rep):</label></h3><br>
-	   Id: <input type = "text" name= "id"/> <br/>
+	   Id: <input type = "text" name= "uid"/> <br/>
        First Name: <input type = "text" name= "first_name"/> <br/>
        Last Name: <input type = "text" name= "last_name"/> <br/>
        Email: <input type = "text" name= "email"/> <br/>
        Address: <input type = "text" name= "address"/> <br/>		
        Username: <input type="text" name="username"/> <br/>
        Password:<input type="password" name="password"/> <br/>
-       <%-- st7.executeQuery("insert into `Representative` (`id`) values (2)";);--%>
-       
 	   <input type="submit" value="Create Account"/>
 	</form>
 	 </form> 

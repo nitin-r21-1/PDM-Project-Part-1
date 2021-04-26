@@ -19,4 +19,6 @@
 	
 	st2.executeUpdate("Insert into `QandA_AsksAnswers` (`qid`, `question`, `answer`, `end_id`) values (" + count + ", '" + question + "', '', " + (Integer) session.getAttribute("userid") + ")");
 	response.sendRedirect("Default_user.jsp");
+
+	con.close();
  %>

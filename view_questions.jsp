@@ -52,7 +52,7 @@ table.center {
 			<td><%= rs1.getString("Rep_id") %></td>
 			<td><%= rs1.getString("End_id") %></td>
 		</tr>
-		<% } %>
+		<% } con.close();%>
 	</table>
 </body>
 </html>

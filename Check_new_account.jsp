@@ -43,4 +43,5 @@
         	response.sendRedirect("Default_user.jsp");
     	}
     }
+	con.close();
 %>

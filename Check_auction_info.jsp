@@ -98,6 +98,6 @@
     
     response.sendRedirect("view_auctions.jsp");
     
-  
+	con.close();
     
 %>

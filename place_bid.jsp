@@ -169,7 +169,7 @@
 	
 	con.close();
 
-} %>
+} con.close();%>
 
 	<b> Thank You!</b>
 	<a href=view_auctions.jsp> Continue Shopping </a>

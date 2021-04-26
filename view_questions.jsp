@@ -48,7 +48,7 @@ table.center {
 			<td><%= rs1.getString("Question") %></td>
 			<td><%= rs1.getString("Answer") %></td>
 		</tr>
-		<% } %>
+		<% } con.close();%>
 	</table>
 </body>
 </html>

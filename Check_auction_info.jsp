@@ -96,8 +96,8 @@
     
     st3.executeUpdate("insert into `History` (`auctionID`, `end_id`, `role`) values (" + auctionID +  ", " + (Integer) session.getAttribute("userid") + ", 'Seller')");
     
+	con.close();
+
     response.sendRedirect("view_auctions.jsp");
-    
-  
     
 %>

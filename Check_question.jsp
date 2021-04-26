@@ -18,5 +18,8 @@
 	int count = Integer.parseInt(rs1.getString("count(*)")) + 1;
 	
 	st2.executeUpdate("Insert into `QandA_AsksAnswers` (`qid`, `question`, `answer`, `end_id`) values (" + count + ", '" + question + "', '', " + (Integer) session.getAttribute("userid") + ")");
+
+	con.close();
+
 	response.sendRedirect("Default_user.jsp");
  %>

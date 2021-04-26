@@ -28,9 +28,9 @@
     	if (rs1.next()) {
     		out.println("Username is already taken. <a href='Create_account.jsp'>try again</a>");
     	} else {
-    		rs2 = st2.executeQuery("select count(*) from `User`");
+    		rs2 = st2.executeQuery("select max(id) from `User`");
     		while (rs2.next()){
-    			count = Integer.parseInt(rs2.getString("count(*)")) + 1;
+    			count = Integer.parseInt(rs2.getString("max(id)")) + 1;
     		}
         	st3.executeUpdate("insert into `User` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `address`) values (" + count + ", '" + user + "', '" + pwd + "', '" + firstname + "', '" + lastname + "', '" + email + "', '" + address + "')" );
         	st4.executeUpdate("insert into `End_User` (`id`) values (" + count + ")");
@@ -40,7 +40,10 @@
     		String newMessage = "Thank you for creating an account with Bid-a-Text!";
     		st5.executeUpdate("insert into `Sends_Alert` (`end_id`, auctionID, `message`) values (" + count + ", 1, '" + newMessage + "')");
     		
+			con.close();
+
         	response.sendRedirect("Default_user.jsp");
     	}
     }
+		
 %>

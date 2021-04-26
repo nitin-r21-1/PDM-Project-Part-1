@@ -50,4 +50,6 @@
    } else {
        out.println("Invalid password <a href='Login.jsp'>try again</a>");
    }
+
+   con.close();
 %>

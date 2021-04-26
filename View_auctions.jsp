@@ -133,7 +133,7 @@ table.center {
 			<td>$<%= rs2.getString("current") %></td>
 			<td><%= rs2.getString("closing") %></td>
 		</tr>
-		<% } %>
+		<% } con.close(); %>
 	</table>
 </body>
 </html>

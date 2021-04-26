@@ -109,7 +109,7 @@ table, th, td {
 			<td>$<%= rs4.getString("value") %></td>
 			<td><%= rs4.getString("placement") %></td>
 		</tr>
-		<% } %>
+		<% } con.close();%>
 	</table>
 
 </body>

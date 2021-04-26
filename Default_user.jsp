@@ -80,8 +80,7 @@ table, th, td {
 	<td><%= rs2.getString("question") %></td>
 	<td><%= rs2.getString("answer") %></td>
 </tr>
-<% } 
-con.close();%>
+<% } con.close();%>
 </table>
 
 <form action= "Check_question.jsp" method = "Post"> 

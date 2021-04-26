@@ -40,8 +40,10 @@
     		String newMessage = "Thank you for creating an account with Bid-a-Text!";
     		st5.executeUpdate("insert into `Sends_Alert` (`end_id`, auctionID, `message`) values (" + count + ", 1, '" + newMessage + "')");
     		
+			con.close();
+
         	response.sendRedirect("Default_user.jsp");
     	}
     }
-	con.close();
+		
 %>

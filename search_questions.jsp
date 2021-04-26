@@ -23,16 +23,17 @@ table.center {
 </head>
 
 <%
+    String keyword = request.getParameter("search");
 	Class.forName("com.mysql.jdbc.Driver");
 	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/cs336project","root", "root");
 	Statement st1 = con.createStatement();
 	Statement st2 = con.createStatement();
 	ResultSet rs1,rs2;
-	rs1 = st1.executeQuery("select * from `QandA_AsksAnswers`");
+	rs1 = st2.executeQuery("SELECT Question FROM `QandA_AsksAnswers` WHERE Question LIKE '%'" + keyword + "'%'");
 %>
 
 <body>
-	<h1>Here is the Q/A section!</h1>
+	<h1>Here is the search results!</h1>
 	<br>
 	
 	<table class ="center" style="width:90%">

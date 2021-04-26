@@ -25,8 +25,13 @@
 	Statement st7 = con.createStatement();
 	Statement st8 = con.createStatement();
 	Statement st9 = con.createStatement();
+	Statement st10 = con.createStatement();
+	Statement st11 = con.createStatement();
+	Statement st12 = con.createStatement();
+	Statement st13 = con.createStatement();
+	Statement st14 = con.createStatement();
 	
-	ResultSet rs1, rs2, rs3, rs4, rs5, rs6;
+	ResultSet rs1, rs2, rs3, rs4, rs5, rs6, rs10, rs12, rs13;
 	
 	rs1 = st1.executeQuery("select `auctionID`, `current`, `price`, `increment` from `Auction_Held` where `auctionID` = " + auctionID );
 	rs1.next();
@@ -105,7 +110,23 @@
 	else{
 		st4.executeUpdate("insert into `Bid_PlacesIn` (`bid_num`, `auctionID`, `end_id`, `value`, `upper_limit`, `increment`, `placement`) values (" + bid_num + ", " + auctionID + ", " + end_id + ", " + value + ", " + upper_limit + ", " + increment + ", '" + placement + "')" );
 	}
+	rs12 = st12.executeQuery("select `end_id` from `Bid_PlacesIn` where `auctionID` =  " + auctionID + " and value = " + currentBid);
+	if(rs12.next()){
+		String loser_id = rs12.getString("end_id");
+	
+		rs13 = st13.executeQuery("select `title` from `Text_Sells` where textID = " + auctionID);
+		rs13.next();
+		String title = rs13.getString("title");
+		String alert = "Attention you have been outbid by " + session.getAttribute("user").toString() + " for " + title;
+		st14.executeUpdate("insert into `Sends_Alert` (`end_id`, `auctionID`, `message`) values ( " + loser_id + " , " + auctionID + ", '" + alert +"')");
+	}
+	
 	st4.executeUpdate("update `Auction_Held` set `current` = " + value + " where auctionID = " + auctionID);
+	
+	rs10 = st10.executeQuery("select * from `History` where end_id = " + end_id + " and auctionID = " + auctionID);
+	if (!rs10.next()){
+		st11.executeUpdate("insert into `History` (`auctionID`, `end_id`, `role`) values (" + auctionID + ", " + end_id + ", 'Buyer')");
+	}
 	
 	String lastBidder = end_id;
 	int currVal = val;
@@ -169,7 +190,7 @@
 	
 	con.close();
 
-} con.close();%>
+} %>
 
 	<b> Thank You!</b>
 	<a href=view_auctions.jsp> Continue Shopping </a>
